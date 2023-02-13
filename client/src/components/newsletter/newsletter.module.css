@@ -1,0 +1,59 @@
+.container {
+    height: 100%;
+    width: 100%;
+    margin-top: 7.5rem;
+}
+
+.wrapper {
+    max-width: 1180px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titles {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.titles>h5 {
+    color: #777;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.titles>h2 {
+    color: #333;
+    font-size: 28px;
+}
+
+.wrapper > .inputContainer{
+    margin-top: 2.5rem;
+    border: 2px solid #333;
+    border-radius: 20px;
+    height: 50px;
+    width: 360px;
+    padding: 0.25rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wrapper > .inputContainer:focus-within{
+    border-color: #777;
+}
+
+.wrapper > .inputContainer > input{
+  border: none;
+  outline: none;
+  padding-left: 0.5rem;
+}
+
+.wrapper > .inputContainer > .sendIcon{
+    margin-right: 0.5rem;
+    font-size: 20px;
+}

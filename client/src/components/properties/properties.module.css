@@ -1,0 +1,205 @@
+.container {
+    height: 100%;
+    width: 100%;
+    margin-top: 2.5rem;
+}
+
+.wrapper {
+    max-width: 1180px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.titles {
+    margin-top: 5rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.titles>h5 {
+    color: #777;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.titles>h2 {
+    color: #333;
+    font-size: 28px;
+}
+
+.wrapper>.options {
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* copy & paste */
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.options>select {
+    height: 40px;
+    min-width: 160px;
+    max-width: 200px;
+    border: none;
+    outline: none;
+    padding: 0.25rem 0.75rem;
+    background-color: blue;
+    color: #fff;
+    border-radius: 12px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.options>select:first-child {
+    color: #fff;
+}
+
+.options>.rangeInput {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.options> .searchBtn {
+    outline: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background-color: transparent;
+}
+.options > .searchBtn > .searchIcon{
+    border: 1px solid transparent;
+    border-radius: 50%;
+    padding: 0.6rem;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, rgb(7, 3, 73) 0%, rgb(14, 14, 132) 35%, rgb(32, 97, 219) 100%);
+    fill: #fff;
+}
+
+.options> .searchBtn:active > .searchIcon{
+    border: 1px solid rgb(7, 3, 73);
+    fill: rgb(7, 3, 73);
+    background: #fff;
+}
+
+
+/* individual property css */
+.properties{
+    margin-top: 3rem;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.properties > .property > .imgContainer {
+    display: inline-block;
+    height: 350px;
+    width: 80%;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.properties > .property > .imgContainer > img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: 150ms all;
+}
+
+.properties > .property > .imgContainer > img:hover{
+    scale: 1.035;
+}
+
+.properties .owner{
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.property > .details{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 0.5rem;
+}
+
+.property > .details > .priceAndOwner{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.priceAndOwner > .price{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.moreDetails{
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.moreDetails > span{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-right: 1px solid #0707b5;
+    color: #2c2cdc;
+    padding-right: 1.25rem;
+}
+
+.moreDetails > span:last-child{
+    border: none;
+}
+
+.desc{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 250px;
+    font-size: 18px;
+    color: #222;
+}
+
+.noProperty{
+    text-align: center;
+    margin-top: 5rem;
+    font-size: 36px;
+    color: #222;
+}
+
+/* RESPONSIVE */
+
+@media only screen and (max-width: 992px) {
+    .wrapper>.options{
+        width: 90%;
+        padding: 0.75rem 1rem;
+        margin: 0 auto;
+    }
+
+    .properties{
+       justify-content: center;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    
+}

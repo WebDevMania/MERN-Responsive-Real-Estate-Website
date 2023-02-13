@@ -1,0 +1,130 @@
+.container {
+  min-height: 100vh;
+  max-height: 100%;
+  width: 100%;
+  margin-top: 10rem;
+}
+
+.wrapper {
+  max-width: 1180px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.titles {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.titles>h5 {
+  color: #777;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.titles>h2 {
+  color: #333;
+  font-size: 28px;
+}
+
+.properties {
+  margin-top: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 3rem;
+}
+
+.property {
+  width: 30%;
+  position: relative;
+  padding: 1rem;
+  transform: rotate(-1deg);
+  border-radius: 10px 50px 10px 50px;
+  box-shadow: -5px 5px 19px -5px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: -5px 5px 19px -5px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: -5px 5px 19px -5px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  transition: 150ms all;
+}
+
+.property:hover {
+  transform: rotate(0);
+}
+
+.properties> .property> img {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px 50px 10px 50px;
+  transform: rotate(-1deg);
+  transition: 150ms all;
+  cursor: pointer;
+}
+
+.properties>.property>img:hover {
+  transform: rotate(0);
+}
+
+.properties>.property>img::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #555;
+  width: 100%;
+  height: 100%;
+}
+
+.property>h5 {
+  margin-left: 1rem;
+  margin-top: 1rem;
+  font-size: 22px;
+  color: #333;
+  text-align: center;
+}
+
+.property>.quantity {
+  position: absolute;
+  bottom: 5rem;
+  left: 2rem;
+  color: #fff;
+  font-size: 20px;
+  background-color: #0303ce;
+  padding: 0.4rem 1.2rem;
+  border-radius: 20px;
+  transform: rotate(-1deg);
+  transition: 150ms all;
+}
+
+
+.property:hover>.quantity {
+  transform: rotate(0);
+}
+
+/* RESPONSIVEE */
+@media only screen and (max-width: 992px) {
+  .properties {
+    justify-content: center;
+  }
+
+  .properties>.property>img {
+    width: 450px;
+  }
+
+  .property {
+    width: 50%
+  }
+
+  .container {
+    margin-bottom: 5rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .property {
+    width: 65%
+  }
+}

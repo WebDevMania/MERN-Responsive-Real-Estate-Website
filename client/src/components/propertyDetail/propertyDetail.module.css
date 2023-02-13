@@ -1,0 +1,229 @@
+.container {
+    height: calc(100vh - 60px);
+    width: 100%;
+    margin-top: 5rem;
+}
+
+.wrapper {
+    max-width: 1180px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 46px;
+}
+
+/* left */
+
+.left {
+    flex: 1;
+    height: 100%;
+    width: 100%;
+}
+
+.left > img{
+    height: 65%;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* right */
+
+.right {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.title{
+    margin-bottom: 2.5rem;
+    font-weight: 500;
+    font-size: 28px;
+    color: #222;
+}
+
+.priceAndOwner .owner{
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.details{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 0.5rem;
+}
+
+.details > .priceAndOwner{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.priceAndOwner > .price {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.priceAndOwner > .price > span{
+    font-weight: normal;
+    font-size: 17px;
+}
+
+.moreDetails{
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+}
+
+.moreDetails > span{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-right: 1px solid #0707b5;
+    color: #2c2cdc;
+    padding-right: 1.25rem;
+}
+
+.moreDetails > span:last-child{
+    border: none;
+}
+
+.typeAndContinent{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: capitalize;
+    margin-bottom: 2rem;
+}
+
+.typeAndContinent > div > span{
+    background-color: #2500ac;
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 12px;
+    margin-left: 0.25rem;
+}
+
+.desc{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 450px;
+    font-size: 18px;
+    margin: 2rem 0;
+}
+
+.desc > span{
+    color: #444;
+    font-size: 16px;
+}
+
+.contactOwner{
+    width: 25%;
+    text-align: center;
+    border: 1px solid transparent;
+    outline: none;
+    margin-top: 1.5rem;
+    padding: 0.4rem 1rem;
+    white-space: nowrap;
+    background-color: #2500ac;
+    color: #fff;
+    cursor: pointer;
+}
+
+.contactOwner:hover{
+    border-color: #2500ac;
+    color: #2500ac;
+    background-color: #fff;
+}
+
+/* list property */
+
+.contactForm{
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999999999;
+}
+
+.contactFormWrapper{
+    position: relative;
+    background-color: #fff;
+    height: 65vh;
+    width: 25vw;
+    border-radius: 20px;
+}
+
+.contactFormWrapper > h2{
+    text-align: center;
+    margin: 2.5rem 0;
+    margin-bottom: 3.5rem;
+}
+
+.contactFormWrapper > form > div > label{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 18px;
+    margin-right: 1rem;
+}
+
+.contactFormWrapper button{
+    margin-top: 0.5rem;
+}
+
+.removeIcon{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* RESPONSIVE */
+
+@media only screen and (max-width: 992px) {
+    .left{
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .left > img{
+        width: 90%;
+        height: 75%;
+    }
+
+    .right{
+        width: 90%;
+    }
+
+    .contactFormWrapper{
+        height: 75vh;
+        width: 35vw;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    .contactFormWrapper{
+        height: 75vh;
+        width: 50vw;
+    }
+
+    .contactOwner{
+        width: 150px;
+    }
+}

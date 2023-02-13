@@ -1,0 +1,126 @@
+.container {
+    height: 100%;
+    width: 100%;
+    margin-top: 7.5rem;
+}
+
+.wrapper {
+    max-width: 1180px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.titles {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.titles>h5 {
+    color: #777;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.titles>h2 {
+    color: #333;
+    font-size: 28px;
+}
+
+.featuredProperties{
+    width: 100%;
+    margin-top: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.featuredProperties > .featuredProperty > .imgContainer {
+    display: inline-block;
+    height: 350px;
+    width: 80%;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.featuredProperties > .featuredProperty > .imgContainer > img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: 150ms all;
+}
+
+.featuredProperties > .featuredProperty > .imgContainer > img:hover{
+    scale: 1.035;
+}
+
+.featuredProperties .owner{
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.featuredProperty > .details{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 0.5rem;
+}
+
+.featuredProperty > .details > .priceAndOwner{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.priceAndOwner > .price{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.moreDetails{
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.moreDetails > span{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-right: 1px solid #0707b5;
+    color: #2c2cdc;
+    padding-right: 1.25rem;
+}
+
+.moreDetails > span:last-child{
+    border: none;
+}
+
+.desc{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 250px;
+    font-size: 18px;
+    color: #222;
+}
+
+/* RESPONSIVEE */
+@media only screen and (max-width: 992px) {
+    .container {
+        margin-top: 10rem;
+    }
+
+    .featuredProperties{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
