@@ -17,7 +17,7 @@
 }
 
 .navigation,
-.hamburgerIcon{
+.hamburgerIcon {
     display: none;
 }
 
@@ -173,9 +173,20 @@
     cursor: pointer;
 }
 
+.error {
+    padding: 1rem;
+    background-color: #f00;
+    color: #fff;
+    position: absolute;
+    z-index: 9999999999;
+    right: 1rem;
+    top: 3rem;
+    border-radius: 8px;
+}
+
 /* RESPONSIVEE */
 @media only screen and (max-width: 992px) {
-    .listPropertyWrapper{
+    .listPropertyWrapper {
         height: 95vh;
         width: 60vw;
     }
@@ -191,40 +202,40 @@
 }
 
 @media only screen and (max-width: 768px) {
-    .listPropertyWrapper{
+    .listPropertyWrapper {
         position: absolute;
         left: 18rem;
     }
 
-    .wrapper{
+    .wrapper {
         display: none;
     }
 
-    .mobileNav{
+    .mobileNav {
         display: flex;
         width: 100%;
         height: 100%;
         align-items: center;
     }
 
-    .hamburgerIcon{
+    .hamburgerIcon {
         display: block;
         margin-left: 1rem;
         font-size: 26px;
     }
 
-    .center > input{
+    .center>input {
         background-color: transparent;
     }
 
-    .mobileCloseIcon{
+    .mobileCloseIcon {
         position: absolute;
         top: 1.5rem;
         right: 1rem;
         font-size: 24px;
     }
 
-    .navigation{
+    .navigation {
         width: 75%;
         height: 100%;
         position: fixed;
@@ -239,8 +250,7 @@
         gap: 2.5rem;
     }
 
-    .modal{
+    .modal {
         background-color: #fff;
     }
 }
-    

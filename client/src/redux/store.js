@@ -11,7 +11,6 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import authSlice from "./authSlice";
-import propertySlice from "./propertySlice";
 
 
 const persistConfig = {
@@ -21,8 +20,7 @@ const persistConfig = {
 };
 
 const reducers = combineReducers({
-    auth: authSlice,
-    property: propertySlice
+    auth: authSlice 
 })
 
 const persistedReducer = persistReducer(persistConfig, reducers);

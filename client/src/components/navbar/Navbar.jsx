@@ -14,6 +14,7 @@ const Navbar = () => {
   const [photo, setPhoto] = useState(null)
   const [isScrolled, setIsScrolled] = useState(false)
   const [showForm, setShowForm] = useState(false)
+  const [error, setError] = useState(false)
   const { user, token } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -62,21 +63,33 @@ const Navbar = () => {
       }
 
       await request("/upload/image", 'POST', options, formData, true)
+    } else {
+      setError(true)
+      setTimeout(() => {
+        setError(false)
+      }, 2500)
+      return
     }
 
 
     try {
+      if (state.some((v) => !v) && state.length < 8) {
+        setError(true)
+        setTimeout(() => {
+          setError(false)
+        }, 2500)
+        return
+      }
+
       const options = {
         "Authorization": `Bearer ${token}`,
         "Content-Type": 'application/json'
       }
 
-      const data = await request("/property", 'POST', options, { ...state, img: filename })
-      console.log(data)
+      await request("/property", 'POST', options, { ...state, img: filename })
 
       setShowForm(false)
-      // dispatch(updateUser(data))
-      // window.location.reload()
+      window.location.reload()
     } catch (error) {
       console.error(error)
     }
@@ -114,6 +127,7 @@ const Navbar = () => {
               <span>Hello {user.username}!</span>
               <span className={classes.logoutBtn} onClick={handleLogout}>Logout</span>
               <Link onClick={() => setShowForm(true)} className={classes.list}>List your property</Link>
+              <span onClick={() => navigate('/myproperties')}>My properties</span>
             </>
           }
         </div>
@@ -185,35 +199,43 @@ const Navbar = () => {
               </div>
               {showForm &&
                 <div className={classes.listPropertyForm} onClick={handleCloseForm}>
-                  <div className={classes.listPropertyWrapper} onClick={(e) => e.stopPropagation()}>
-                    <h2>List Property</h2>
-                    <form onSubmit={handleListProperty}>
-                      <input type="text" placeholder='Title' name="title" onChange={handleState} />
-                      <input type="text" placeholder='Type' name="type" onChange={handleState} />
-                      <input type="text" placeholder='Desc' name="desc" onChange={handleState} />
-                      <input type="text" placeholder='Continent' name="continent" onChange={handleState} />
-                      <input type="number" placeholder='Price' name="price" onChange={handleState} />
-                      <input type="number" placeholder='Sq. meters' name="sqmeters" onChange={handleState} />
-                      <input type="number" placeholder='Beds' name="beds" step={1} min={1} onChange={handleState} />
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '50%' }}>
-                        <label htmlFor='photo'>Property picture <AiOutlineFileImage /></label>
-                        <input
-                          type="file"
-                          id='photo'
-                          style={{ display: 'none' }}
-                          onChange={(e) => setPhoto(e.target.files[0])}
-                        />
-                        {photo && <p>{photo.name}</p>}
-                      </div>
-                      <button>List property</button>
-                    </form>
-                    <AiOutlineClose onClick={handleCloseForm} className={classes.removeIcon} />
-                  </div>
-                </div>}
+                <div className={classes.listPropertyWrapper} onClick={(e) => e.stopPropagation()}>
+                  <h2>List Property</h2>
+                  <form onSubmit={handleListProperty}>
+                    <input type="text" placeholder='Title' name="title" onChange={handleState} />
+                    <input type="text" placeholder='Type' name="type" onChange={handleState} />
+                    <input type="text" placeholder='Desc' name="desc" onChange={handleState} />
+                    <input type="text" placeholder='Continent' name="continent" onChange={handleState} />
+                    <input type="number" placeholder='Price' name="price" onChange={handleState} />
+                    <input type="number" placeholder='Sq. meters' name="sqmeters" onChange={handleState} />
+                    <input type="number" placeholder='Beds' name="beds" step={1} min={1} onChange={handleState} />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '50%' }}>
+                      <label htmlFor='photo'>Property picture <AiOutlineFileImage /></label>
+                      <input
+                        type="file"
+                        id='photo'
+                        style={{ display: 'none' }}
+                        onChange={(e) => setPhoto(e.target.files[0])}
+                      />
+                      {photo && <p>{photo.name}</p>}
+                    </div>
+                    <button>List property</button>
+                  </form>
+                  <AiOutlineClose onClick={handleCloseForm} className={classes.removeIcon} />
+                </div>
+              </div>}
             </div>}
           {!showMobileNav && <GiHamburgerMenu onClick={() => setShowMobileNav(prev => !prev)} className={classes.hamburgerIcon} />}
         </div>
       }
+
+
+      {/* error */}
+      {error && (
+        <div className={classes.error}>
+          <span>All fields must be filled!</span>
+        </div>
+      )}
     </div>
   )
 }

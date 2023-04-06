@@ -9,7 +9,7 @@ const uploadController = require('./controllers/uploadController')
 
 // db connecting
 mongoose.set('strictQuery', false)
-mongoose.connect(process.env.MONGO_URL, () => console.log("Db is connected"));
+mongoose.connect(process.env.MONGO_URL);
 
 // middlewares
 app.use(cors());

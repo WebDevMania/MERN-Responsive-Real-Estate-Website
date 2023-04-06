@@ -1,0 +1,22 @@
+.container {
+    height: 100%;
+    width: 100%;
+    margin-top: 10rem;
+}
+
+.wrapper {
+    max-width: 1180px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wrapper > h2{
+    margin-bottom: 2.5rem;
+}
+
+.wrapper > form{
+    width: 75%;
+}

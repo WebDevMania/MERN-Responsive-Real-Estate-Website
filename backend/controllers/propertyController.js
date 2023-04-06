@@ -56,6 +56,16 @@ propertyController.get('/find/types', async(req, res) => {
     }
 })
 
+propertyController.get('/find/myproperties', verifyToken, async(req, res) => {
+    try {
+       const properties = await Property.find({currentOwner: req.user.id})
+       
+       return res.status(200).json(properties)
+    } catch (error) {
+        console.error(error)
+    }
+})
+
 // TODO FETCH INDIVIDUAL PROPERTY
 propertyController.get('/find/:id', async(req, res) => {
     try {
@@ -70,6 +80,7 @@ propertyController.get('/find/:id', async(req, res) => {
         return res.status(500).json(error) 
     }
 })
+
 
 // create estate
 propertyController.post('/', verifyToken, async (req, res) => {
@@ -86,8 +97,8 @@ propertyController.post('/', verifyToken, async (req, res) => {
 propertyController.put('/:id', verifyToken, async (req, res) => {
     try {
         const property = await Property.findById(req.params.id)
-        if (property.owner !== req.user.id) {
-            throw new Error("You are not allowed to update other people properties")
+        if (property.currentOwner.toString() !== req.user.id) {
+            throw new Error("You are not allowed to update other people's properties")
         }
 
         const updatedProperty = await Property.findByIdAndUpdate(
@@ -95,6 +106,7 @@ propertyController.put('/:id', verifyToken, async (req, res) => {
             {$set: req.body}, 
             {new: true}
         )
+        
 
         return res.status(200).json(updatedProperty)
     } catch (error) {
@@ -103,10 +115,10 @@ propertyController.put('/:id', verifyToken, async (req, res) => {
 })
 
 // delete estate
-propertyController.put('/:id', verifyToken, async (req, res) => {
+propertyController.delete('/:id', verifyToken, async (req, res) => {
     try {
         const property = await Property.findById(req.params.id)
-        if (property.owner !== req.user.id) {
+        if (property.currentOwner.toString() !== req.user.id) {
             throw new Error("You are not allowed to delete other people properties")
         }
 

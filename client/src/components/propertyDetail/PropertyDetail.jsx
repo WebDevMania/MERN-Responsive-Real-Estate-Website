@@ -4,7 +4,7 @@ import person from '../../assets/person.jpg'
 import emailjs from '@emailjs/browser'
 import { useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
-import { useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { request } from '../../util/fetchAPI'
@@ -12,17 +12,18 @@ import { FaBed, FaSquareFull } from 'react-icons/fa'
 import { useRef } from 'react'
 
 const PropertyDetail = () => {
-  const { user } = useSelector((state) => state.auth)
+  const { token, user } = useSelector((state) => state.auth)
   const [propertyDetail, setPropertyDetail] = useState(null)
   const [showForm, setShowForm] = useState(false)
   const [title, setTitle] = useState("")
   const [desc, setDesc] = useState("")
   const { id } = useParams()
   const formRef = useRef()
+  const navigate = useNavigate()
 
   // email js TODO ENV VARIABLES
-  const serviceID = process.env.REACT_APP_SERVICE_ID
-  const templateID = process.env.REACT_APP_TEMPLATE_ID
+  // const serviceID = process.env.REACT_APP_SERVICE_ID
+  // const templateID = process.env.REACT_APP_TEMPLATE_ID
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -54,6 +55,17 @@ const PropertyDetail = () => {
       });
   }
 
+  const handleDelete = async () => {
+    try {
+      await request(`/property/${id}`, 'DELETE', { 'Authorization': `Bearer ${token}` })
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  console.log(propertyDetail?.currentOwner)
+
   return (
     <div className={classes.container}>
       <div className={classes.wrapper}>
@@ -63,6 +75,12 @@ const PropertyDetail = () => {
         <div className={classes.right}>
           <h3 className={classes.title}>
             Title: {`${propertyDetail?.title}`}
+            {user._id === propertyDetail?.currentOwner?._id && (
+              <div className={classes.controls}>
+                <Link to={`/editProperty/${id}`}>Edit</Link>
+                <button onClick={handleDelete}>Delete</button>
+              </div>)
+            }
           </h3>
           <div className={classes.details}>
             <div className={classes.typeAndContinent}>
@@ -93,8 +111,8 @@ const PropertyDetail = () => {
             <h2>Send Email To Owner</h2>
             <form onSubmit={handleContactOwner} ref={formRef}>
               <input value={user?.email} type="text" placeholder='My email' name="from_email" />
-              <input value={user?.username} type="text" placeholder='My username' name="from_username"  />
-              <input value={propertyDetail?.currentOwner?.email} type="email" placeholder='Owner email' name="to_email"  />
+              <input value={user?.username} type="text" placeholder='My username' name="from_username" />
+              <input value={propertyDetail?.currentOwner?.email} type="email" placeholder='Owner email' name="to_email" />
               <input value={title} type="text" placeholder='Title' name="from_title" onChange={(e) => setTitle(e.target.value)} />
               <input value={desc} type="text" placeholder='Desc' name="message" onChange={(e) => setDesc(e.target.value)} />
               <button>Send</button>

@@ -12,6 +12,8 @@ import { useSelector } from 'react-redux'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import './App.css';
 import { useEffect } from 'react';
+import MyProperties from './components/myProperties/MyProperties';
+import EditProperty from './components/editProperty/EditProperty';
 
 function App() {
   const { user } = useSelector((state) => state.auth)
@@ -55,6 +57,24 @@ function App() {
               <Footer />
             </>
             : <Navigate to='/signin' />} />
+        <Route path='/myproperties' element={
+          user ?
+            <>
+              <Navbar />
+              <MyProperties />
+              <Footer />
+            </>
+            : <Navigate to='/signin' />
+        } />
+         <Route path='/editproperty/:id' element={
+          user ?
+            <>
+              <Navbar />
+              <EditProperty />
+              <Footer />
+            </>
+            : <Navigate to='/signin' />
+        } />
       </Routes>
     </div>
   );

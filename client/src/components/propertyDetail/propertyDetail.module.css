@@ -41,6 +41,36 @@
     font-weight: 500;
     font-size: 28px;
     color: #222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.controls{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.controls > a{
+    text-decoration: none;
+    padding: 0.25rem 0.75rem;
+    font-size: 16px;
+    background-color: green;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.controls > button{
+    outline: none;
+    border: none;
+    padding: 0.25rem 0.75rem;
+    font-size: 16px;
+    background-color: #f00;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 .priceAndOwner .owner{
