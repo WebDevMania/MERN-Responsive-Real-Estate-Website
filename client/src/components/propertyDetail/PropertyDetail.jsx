@@ -75,7 +75,7 @@ const PropertyDetail = () => {
         <div className={classes.right}>
           <h3 className={classes.title}>
             Title: {`${propertyDetail?.title}`}
-            {user._id === propertyDetail?.currentOwner?._id && (
+            {user?._id === propertyDetail?.currentOwner?._id && (
               <div className={classes.controls}>
                 <Link to={`/editProperty/${id}`}>Edit</Link>
                 <button onClick={handleDelete}>Delete</button>
@@ -99,9 +99,11 @@ const PropertyDetail = () => {
           <p className={classes.desc}>
             Desc: <span>{`${propertyDetail?.desc}`}</span>
           </p>
-          <button onClick={() => setShowForm(true)} className={classes.contactOwner}>
-            Contact owner
-          </button>
+          {user?._id == true &&
+            <button onClick={() => setShowForm(true)} className={classes.contactOwner}>
+              Contact owner
+            </button>
+          }
         </div>
       </div>
       {

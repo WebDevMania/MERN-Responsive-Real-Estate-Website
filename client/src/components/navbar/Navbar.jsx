@@ -15,6 +15,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [showForm, setShowForm] = useState(false)
   const [error, setError] = useState(false)
+  const [showModal, setShowModal] = useState(false)
   const { user, token } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -124,10 +125,17 @@ const Navbar = () => {
             </>
             :
             <>
-              <span>Hello {user.username}!</span>
-              <span className={classes.logoutBtn} onClick={handleLogout}>Logout</span>
-              <Link onClick={() => setShowForm(true)} className={classes.list}>List your property</Link>
-              <span onClick={() => navigate('/myproperties')}>My properties</span>
+              <span className={classes.username} onClick={() => setShowModal(prev => !prev)}>Hello {user.username}!</span>
+              {showModal && (
+                <div className={classes.userModal}>
+                  <AiOutlineClose onClick={() => setShowModal(prev => !prev)} className={classes.userModalClose} />
+                  <span className={classes.logoutBtn} onClick={handleLogout}>Logout</span>
+                  <Link onClick={() => setShowForm(true)} className={classes.list}>List your property</Link>
+                  <span onClick={() => navigate('/myproperties')}>My properties</span>
+                  <Link onClick={() => setShowModal(prev => !prev)} className={classes.yachtBtn} to={`/yachts`}>See yachts!</Link>
+                  <Link to={`/create-yacht`} onClick={() => setShowModal(prev => !prev)}>Create Yacht</Link>
+                </div>
+              )}
             </>
           }
         </div>
@@ -199,31 +207,31 @@ const Navbar = () => {
               </div>
               {showForm &&
                 <div className={classes.listPropertyForm} onClick={handleCloseForm}>
-                <div className={classes.listPropertyWrapper} onClick={(e) => e.stopPropagation()}>
-                  <h2>List Property</h2>
-                  <form onSubmit={handleListProperty}>
-                    <input type="text" placeholder='Title' name="title" onChange={handleState} />
-                    <input type="text" placeholder='Type' name="type" onChange={handleState} />
-                    <input type="text" placeholder='Desc' name="desc" onChange={handleState} />
-                    <input type="text" placeholder='Continent' name="continent" onChange={handleState} />
-                    <input type="number" placeholder='Price' name="price" onChange={handleState} />
-                    <input type="number" placeholder='Sq. meters' name="sqmeters" onChange={handleState} />
-                    <input type="number" placeholder='Beds' name="beds" step={1} min={1} onChange={handleState} />
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '50%' }}>
-                      <label htmlFor='photo'>Property picture <AiOutlineFileImage /></label>
-                      <input
-                        type="file"
-                        id='photo'
-                        style={{ display: 'none' }}
-                        onChange={(e) => setPhoto(e.target.files[0])}
-                      />
-                      {photo && <p>{photo.name}</p>}
-                    </div>
-                    <button>List property</button>
-                  </form>
-                  <AiOutlineClose onClick={handleCloseForm} className={classes.removeIcon} />
-                </div>
-              </div>}
+                  <div className={classes.listPropertyWrapper} onClick={(e) => e.stopPropagation()}>
+                    <h2>List Property</h2>
+                    <form onSubmit={handleListProperty}>
+                      <input type="text" placeholder='Title' name="title" onChange={handleState} />
+                      <input type="text" placeholder='Type' name="type" onChange={handleState} />
+                      <input type="text" placeholder='Desc' name="desc" onChange={handleState} />
+                      <input type="text" placeholder='Continent' name="continent" onChange={handleState} />
+                      <input type="number" placeholder='Price' name="price" onChange={handleState} />
+                      <input type="number" placeholder='Sq. meters' name="sqmeters" onChange={handleState} />
+                      <input type="number" placeholder='Beds' name="beds" step={1} min={1} onChange={handleState} />
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '50%' }}>
+                        <label htmlFor='photo'>Property picture <AiOutlineFileImage /></label>
+                        <input
+                          type="file"
+                          id='photo'
+                          style={{ display: 'none' }}
+                          onChange={(e) => setPhoto(e.target.files[0])}
+                        />
+                        {photo && <p>{photo.name}</p>}
+                      </div>
+                      <button>List property</button>
+                    </form>
+                    <AiOutlineClose onClick={handleCloseForm} className={classes.removeIcon} />
+                  </div>
+                </div>}
             </div>}
           {!showMobileNav && <GiHamburgerMenu onClick={() => setShowMobileNav(prev => !prev)} className={classes.hamburgerIcon} />}
         </div>

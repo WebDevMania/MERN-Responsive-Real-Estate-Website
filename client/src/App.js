@@ -1,4 +1,3 @@
-import FeaturedProperties from './components/featuredProperties/FeaturedProperties';
 import Footer from './components/footer/Footer';
 import Hero from './components/hero/Hero';
 import Navbar from './components/navbar/Navbar';
@@ -14,6 +13,10 @@ import './App.css';
 import { useEffect } from 'react';
 import MyProperties from './components/myProperties/MyProperties';
 import EditProperty from './components/editProperty/EditProperty';
+import Yachts from './components/yachts/Yachts';
+import YachtDetails from './components/yachtDetails/YachtDetails';
+import CreateYacht from './components/createYacht/CreateYacht';
+import YachtEdit from './components/yachtEdit/YachtEdit';
 
 function App() {
   const { user } = useSelector((state) => state.auth)
@@ -27,36 +30,58 @@ function App() {
     <div>
       <Routes>
         <Route path='/' element={
-          user
-            ?
-            <>
-              <Navbar />
-              <Hero />
-              <PopularProperties />
-              <FeaturedProperties />
-              <Newsletter />
-              <Footer />
-            </>
-            : <Navigate to='/signin' />
+          <>
+            <Navbar />
+            <Hero />
+            <PopularProperties />
+            <Newsletter />
+            <Footer />
+          </>
         } />
         <Route path='/signup' element={!user ? <Signup /> : <Navigate to='/' />} />
         <Route path='/signin' element={!user ? <Signin /> : <Navigate to='/' />} />
-        <Route path='/properties' element={user ?
+        <Route path='/properties' element={
           <>
             <Navbar />
             <Properties />
             <Footer />
           </>
+        } />
+        <Route path='/yachts' element={user ?
+          <>
+            <Navbar />
+            <Yachts />
+            <Footer />
+          </>
+          : <Navigate to='/signin' />} />
+        <Route path='/yacht/:id' element={user ?
+          <>
+            <Navbar />
+            <YachtDetails />
+            <Footer />
+          </>
+          : <Navigate to='/signin' />} />
+        <Route path='/create-yacht' element={user ?
+          <>
+            <Navbar />
+            <CreateYacht />
+            <Footer />
+          </>
+          : <Navigate to='/signin' />} />
+        <Route path='/yacht-edit/:id' element={user ?
+          <>
+            <Navbar />
+            <YachtEdit />
+            <Footer />
+          </>
           : <Navigate to='/signin' />} />
         <Route path='/propertyDetail/:id' element={
-          user
-            ?
-            <>
-              <Navbar />
-              <PropertyDetail />
-              <Footer />
-            </>
-            : <Navigate to='/signin' />} />
+          <>
+            <Navbar />
+            <PropertyDetail />
+            <Footer />
+          </>
+        } />
         <Route path='/myproperties' element={
           user ?
             <>
@@ -66,7 +91,7 @@ function App() {
             </>
             : <Navigate to='/signin' />
         } />
-         <Route path='/editproperty/:id' element={
+        <Route path='/editproperty/:id' element={
           user ?
             <>
               <Navbar />

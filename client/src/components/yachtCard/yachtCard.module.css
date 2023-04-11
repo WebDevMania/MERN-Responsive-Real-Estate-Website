@@ -1,0 +1,51 @@
+.container {
+    text-decoration: none;
+    color: #222;
+    height: 100%;
+    width: 100%;
+    -webkit-box-shadow: 10px 10px 24px -8px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 10px 10px 24px -8px rgba(0, 0, 0, 0.25);
+    box-shadow: 10px 10px 24px -8px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    padding: 0.75rem;
+    cursor: pointer;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.imgContainer{
+    width: 100%;
+    height: 250px;
+}
+
+.imgContainer > img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.title{
+    margin-top: 0.25rem;
+    text-transform: capitalize;
+}
+
+.priceAndMaxPassengers{
+    margin-top: 0.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.passengers{
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: #555;
+}

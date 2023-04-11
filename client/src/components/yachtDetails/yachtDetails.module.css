@@ -1,0 +1,195 @@
+.container {
+    height: calc(100vh - 60px);
+    width: 100%;
+    margin-top: 5rem;
+}
+
+.wrapper {
+    height: 100%;
+    width: 85%;
+    margin: 0 auto;
+    display: flex;
+    gap: 5rem;
+}
+
+.left {
+    height: 80%;
+    width: 50%;
+}
+
+.left>img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actions {
+    margin-left: 5rem;
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.actions> :first-child {
+    text-decoration: none;
+    padding: 0.25rem 0.75rem;
+    background-color: green;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.actions> :last-child {
+    padding: 0.25rem 0.75rem;
+    background-color: #f00;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.location {
+    margin-top: 3rem;
+    margin-bottom: 1.25rem;
+    font-size: 18px;
+    color: #222;
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.location>span {
+    padding: 0.25rem 0.75rem;
+    background-color: blue;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.price {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    color: #222;
+    font-size: 18px;
+    margin-bottom: 3rem;
+}
+
+.price>span {
+    font-size: 16px;
+}
+
+.passengers {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.passengers>span {
+    padding: 0.25rem 0.75rem;
+    background-color: blue;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.descContainer {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    font-size: 18px;
+}
+
+.descContainer>p {
+    color: #333;
+    font-size: 16px;
+}
+
+.ownerDetails {
+    margin-top: 5rem;
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.ownerDetails>span {
+    font-size: 20px;
+    color: #333;
+}
+
+.ownerDetails>button {
+    outline: none;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.25rem 0.75rem;
+    background-color: blue;
+    color: #fff;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.ownerDetails>button:hover {
+    border-color: blue;
+    color: blue;
+    background-color: #fff;
+}
+
+.contactForm {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999999999;
+}
+
+.contactFormWrapper {
+    position: relative;
+    background-color: #fff;
+    height: 65vh;
+    width: 25vw;
+    border-radius: 20px;
+}
+
+.contactFormWrapper>h2 {
+    text-align: center;
+    margin: 2.5rem 0;
+    margin-bottom: 3.5rem;
+}
+
+.contactFormWrapper>form>div>label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 18px;
+    margin-right: 1rem;
+}
+
+.contactFormWrapper button {
+    margin-top: 0.5rem;
+}
+
+.removeIcon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 22px;
+    cursor: pointer;
+}
