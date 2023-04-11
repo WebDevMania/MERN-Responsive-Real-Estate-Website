@@ -5,7 +5,8 @@ const cors = require("cors");
 const app = express();
 const authController = require('./controllers/authController')
 const propertyController = require('./controllers/propertyController')
-const uploadController = require('./controllers/uploadController')
+const uploadController = require('./controllers/uploadController');
+const yachtController = require("./controllers/yachtController");
 
 // db connecting
 mongoose.set('strictQuery', false)
@@ -19,6 +20,7 @@ app.use('/images', express.static('public/images'))
 
 app.use("/auth", authController);
 app.use("/property", propertyController);
+app.use("/yacht", yachtController);
 app.use('/upload', uploadController)
 
 // starting server
