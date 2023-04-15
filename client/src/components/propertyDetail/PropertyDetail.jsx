@@ -16,9 +16,9 @@ const PropertyDetail = () => {
   const { token, user } = useSelector((state) => state.auth)
   const [propertyDetail, setPropertyDetail] = useState(null)
   const [showForm, setShowForm] = useState(false)
-  const [title, setTitle] = useState("")
   const [desc, setDesc] = useState("")
   const [isBookmarked, setIsBookmarked] = useState(false)
+  const [success, setSuccess] = useState(false)
   const { id } = useParams()
   const formRef = useRef()
   const navigate = useNavigate()
@@ -42,17 +42,19 @@ const PropertyDetail = () => {
 
   const handleCloseForm = () => {
     setShowForm(false)
-    setTitle('')
     setDesc('')
   }
 
   const handleContactOwner = async (e) => {
     e.preventDefault()
 
-    emailjs.sendForm("service_t06pp54", "template_98hv8r4", formRef.current, '3oTJ216_DibDrfWHo')
+    emailjs.sendForm("service_99i3wr5", "template_w5mthmm", formRef.current, '5T3Wb_hkHjKTOJDYQ')
       .then((result) => {
-        console.log(result.text);
-        console.log(result.text)
+        handleCloseForm()
+        setSuccess(true)
+        setTimeout(() => {
+          setSuccess(false)
+        }, 2500)
       }, (error) => {
         console.log(error.text);
       });
@@ -141,7 +143,6 @@ const PropertyDetail = () => {
               <input value={user?.email} type="text" placeholder='My email' name="from_email" />
               <input value={user?.username} type="text" placeholder='My username' name="from_username" />
               <input value={propertyDetail?.currentOwner?.email} type="email" placeholder='Owner email' name="to_email" />
-              <input value={title} type="text" placeholder='Title' name="from_title" onChange={(e) => setTitle(e.target.value)} />
               <input value={desc} type="text" placeholder='Desc' name="message" onChange={(e) => setDesc(e.target.value)} />
               <button>Send</button>
             </form>
@@ -149,6 +150,11 @@ const PropertyDetail = () => {
           </div>
         </div>
       }
+      {success && (
+        <div className={classes.success}>
+          You've successfully contacted the owner of the yacht!
+        </div>
+      )}
     </div>
   )
 }

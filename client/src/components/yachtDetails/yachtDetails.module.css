@@ -157,8 +157,10 @@
     position: absolute;
     top: 0;
     right: 0;
-    height: 100vh;
-    width: 100vw;
+    min-height: 100vh;
+    min-width: 100vw;
+    max-height: 100%;
+    max-width: 100%;
     background-color: rgba(0, 0, 0, 0.45);
     display: flex;
     align-items: center;
@@ -198,4 +200,23 @@
     right: 1rem;
     font-size: 22px;
     cursor: pointer;
+}
+
+.success {
+    z-index: 999999999999;
+    height: 70px;
+    width: 250px;
+    text-align: center;
+    border-radius: 20px;
+    line-height: 1.5rem;
+    padding: 1.5rem;
+    background-color: green;
+    color: #fff;
+    position: absolute;
+    top: 5rem;
+    right: 5rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
