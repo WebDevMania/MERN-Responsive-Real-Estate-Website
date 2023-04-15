@@ -8,6 +8,7 @@ import { AiOutlineClose, AiOutlineFileImage } from 'react-icons/ai'
 import { BsHouseDoor } from 'react-icons/bs'
 import { logout } from '../../redux/authSlice'
 import { request } from '../../util/fetchAPI'
+import { useEffect } from 'react'
 
 const Navbar = () => {
   const [state, setState] = useState({})
@@ -19,6 +20,12 @@ const Navbar = () => {
   const { user, token } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    setState(prev => {
+      return {...prev, continent: 'europe', type: 'beach'}
+    })
+  }, [])
 
   // mobile
   const [showMobileNav, setShowMobileNav] = useState(false)
@@ -74,7 +81,7 @@ const Navbar = () => {
 
 
     try {
-      if (state.some((v) => !v) && state.length < 8) {
+      if (Object.values(state).some((v) => !v) && Object.values(state).length < 7) {
         setError(true)
         setTimeout(() => {
           setError(false)
@@ -87,12 +94,16 @@ const Navbar = () => {
         "Content-Type": 'application/json'
       }
 
-      await request("/property", 'POST', options, { ...state, img: filename })
+      const newProperty = await request("/property", 'POST', options, { ...state, img: filename })
 
+      setShowModal(false)
       setShowForm(false)
-      window.location.reload()
+      navigate(`/propertyDetail/${newProperty._id}`)
     } catch (error) {
-      console.error(error)
+      setError(true)
+        setTimeout(() => {
+          setError(false)
+        }, 2500)
     }
   }
 
@@ -130,10 +141,10 @@ const Navbar = () => {
                 <div className={classes.userModal}>
                   <AiOutlineClose onClick={() => setShowModal(prev => !prev)} className={classes.userModalClose} />
                   <span className={classes.logoutBtn} onClick={handleLogout}>Logout</span>
+                  <Link  to={`/my-profile`} onClick={() => setShowModal(prev => !prev)} className={classes.myProfile}>My Profile</Link>
                   <Link onClick={() => setShowForm(true)} className={classes.list}>List your property</Link>
-                  <span onClick={() => navigate('/myproperties')}>My properties</span>
                   <Link onClick={() => setShowModal(prev => !prev)} className={classes.yachtBtn} to={`/yachts`}>See yachts!</Link>
-                  <Link to={`/create-yacht`} onClick={() => setShowModal(prev => !prev)}>Create Yacht</Link>
+                  <Link to={`/create-yacht`} onClick={() => setShowModal(prev => !prev)}>List your yacht</Link>
                 </div>
               )}
             </>
@@ -147,9 +158,22 @@ const Navbar = () => {
             <h2>List Property</h2>
             <form onSubmit={handleListProperty}>
               <input type="text" placeholder='Title' name="title" onChange={handleState} />
-              <input type="text" placeholder='Type' name="type" onChange={handleState} />
+              <select required name='type' onChange={handleState}>
+                 <option disabled>Select Type</option>
+                 <option value='beach'>Beach</option>
+                 <option value='village'>Village</option>
+                 <option value='mountain'>Mountan</option>
+              </select>
               <input type="text" placeholder='Desc' name="desc" onChange={handleState} />
-              <input type="text" placeholder='Continent' name="continent" onChange={handleState} />
+              <select required name='continent' onChange={handleState}>
+                 <option disabled>Select Continent</option>
+                 <option value='Europe'>Europe</option>
+                 <option value='Asia'>Asia</option>
+                 <option value='South America'>South America</option>
+                 <option value='North America'>North America</option>
+                 <option value='Australia'>Australia</option>
+                 <option value='Africa'>Africa</option>
+              </select>
               <input type="number" placeholder='Price' name="price" onChange={handleState} />
               <input type="number" placeholder='Sq. meters' name="sqmeters" onChange={handleState} />
               <input type="number" placeholder='Beds' name="beds" step={1} min={1} onChange={handleState} />

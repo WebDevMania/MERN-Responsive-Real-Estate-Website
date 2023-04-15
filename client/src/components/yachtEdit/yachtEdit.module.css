@@ -53,3 +53,21 @@ form .inputBoxImage label {
     outline: none;
     border-bottom: 1px solid #999;
 }
+
+.error {
+    height: 70px;
+    width: 250px;
+    text-align: center;
+    border-radius: 20px;
+    line-height: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #f00;
+    color: #fff;
+    position: fixed;
+    top: 5rem;
+    right: 5rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

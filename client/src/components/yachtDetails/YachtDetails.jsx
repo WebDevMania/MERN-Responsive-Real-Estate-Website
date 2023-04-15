@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import emailjs from '@emailjs/browser'
 import { useRef } from 'react'
+import { BsBookmark, BsFillBookmarkFill } from 'react-icons/bs'
 
 
 const YachtDetails = () => {
@@ -16,6 +17,7 @@ const YachtDetails = () => {
     const [showModal, setShowModal] = useState(false)
     const [title, setTitle] = useState("Yacht...")
     const [desc, setDesc] = useState(null)
+    const [isBookmarked, setIsBookmarked] = useState(false)
     const { user, token } = useSelector((state) => state.auth)
     const formRef = useRef()
     const navigate = useNavigate()
@@ -25,6 +27,7 @@ const YachtDetails = () => {
             try {
                 const yacht = await request(`/yacht/find/${id}`, 'GET')
                 setYacht(yacht)
+                setIsBookmarked(yacht.bookmarkedUsers.includes(user._id))
             } catch (error) {
                 console.log(error)
             }
@@ -52,10 +55,18 @@ const YachtDetails = () => {
             });
     }
 
-    const handleDelete = async(e) => {
+    const handleDelete = async () => {
         try {
-            await request(`/yacht/${id}`, "DELETE", {'Authorization': `Bearer ${token}`})
+            await request(`/yacht/${id}`, "DELETE", { 'Authorization': `Bearer ${token}` })
             navigate('/yachts')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const handleBookmark = async () => {
+        try {
+            await request(`/yacht/bookmark/${id}`, 'PUT', { Authorization: `Bearer ${token}` })
+            setIsBookmarked(prev => !prev)
         } catch (error) {
             console.log(error)
         }
@@ -63,6 +74,7 @@ const YachtDetails = () => {
 
     return (
         <div className={classes.container}>
+            <h3 style={{ textAlign: 'center', marginBottom: '2.5rem', fontSize: '32px', marginTop: '-2.5rem' }}>Yacht Details</h3>
             <div className={classes.wrapper}>
                 <div className={classes.left}>
                     <img src={`http://localhost:5000/images/${yacht?.img}`} />
@@ -85,7 +97,16 @@ const YachtDetails = () => {
                     <div className={classes.ownerDetails}>
                         <span>Owner name: {yacht?.currentOwner?.username}</span>
                         {yacht?.currentOwner?._id.toString() !== user._id && (
-                            <button onClick={() => setShowModal(prev => !prev)}>Contact me on: {yacht?.currentOwner?.email}</button>
+                            <div className={classes.contactBookmarkControls}>
+                                <button onClick={() => setShowModal(prev => !prev)}>Contact me on: {yacht?.currentOwner?.email}</button>
+                                <span onClick={handleBookmark}>
+                                    {isBookmarked ? (
+                                        <BsFillBookmarkFill size={25} />
+                                    ) : (
+                                        <BsBookmark size={25} />
+                                    )}
+                                </span>
+                            </div>
                         )}
                     </div>
                     {showModal && (

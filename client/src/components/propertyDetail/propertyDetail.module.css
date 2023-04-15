@@ -223,6 +223,16 @@
     cursor: pointer;
 }
 
+.contactBookmarkControls{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.contactBookmarkControls > *{
+    cursor: pointer;
+}
+
 /* RESPONSIVE */
 
 @media only screen and (max-width: 992px) {

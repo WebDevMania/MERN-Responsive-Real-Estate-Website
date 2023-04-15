@@ -1,11 +1,11 @@
 .container {
-    height: 100%;
+    height: calc(100vh - 60px);
     width: 100%;
-    margin-top: 10rem;
+    margin-top: 5rem;
 }
 
 .wrapper {
-    max-width: 1180px;
+    width: 85%;
     height: 100%;
     margin: 0 auto;
     display: flex;
@@ -13,12 +13,20 @@
     align-items: center;
 }
 
-.wrapper>h2 {
-    margin-bottom: 2.5rem;
+.wrapper>form {
+    margin-top: 1rem;
+    border: 1px solid #999;
+    border-radius: 20px;
+    padding: 2rem;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
 }
 
-.wrapper>form {
-    width: 75%;
+.wrapper>form>input {
+    width: 80%;
 }
 
 .error {
@@ -39,12 +47,14 @@
     align-items: center;
 }
 
-.wrapper>form>select {
+form .inputBoxImage {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+form .inputBoxImage label {
+    width: 100%;
     display: flex;
-    justify-content: flex-start;
-    background-color: white;
-    color: #222;
-    outline: none;
-    padding: 0.5rem 0.25rem;
-    width: 50%;
+    justify-content: space-between;
+    align-items: flex-end;
 }

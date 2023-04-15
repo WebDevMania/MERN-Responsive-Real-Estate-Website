@@ -130,7 +130,7 @@
     color: #333;
 }
 
-.ownerDetails>button {
+.ownerDetails button {
     outline: none;
     border-radius: 8px;
     border: 1px solid transparent;
@@ -145,6 +145,12 @@
     border-color: blue;
     color: blue;
     background-color: #fff;
+}
+
+.contactBookmarkControls{
+    display: flex;
+    gap: 3rem;
+    align-items: center;
 }
 
 .contactForm {

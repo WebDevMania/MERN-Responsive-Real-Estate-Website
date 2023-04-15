@@ -9,14 +9,15 @@ import Properties from './components/properties/Properties';
 import PropertyDetail from './components/propertyDetail/PropertyDetail';
 import { useSelector } from 'react-redux'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import './App.css';
 import { useEffect } from 'react';
-import MyProperties from './components/myProperties/MyProperties';
 import EditProperty from './components/editProperty/EditProperty';
 import Yachts from './components/yachts/Yachts';
 import YachtDetails from './components/yachtDetails/YachtDetails';
 import CreateYacht from './components/createYacht/CreateYacht';
 import YachtEdit from './components/yachtEdit/YachtEdit';
+import MyProfile from './components/myProfile/MyProfile';
+import './App.css';
+import UpdateProfile from './components/updateProfile/UpdateProfile';
 
 function App() {
   const { user } = useSelector((state) => state.auth)
@@ -82,20 +83,29 @@ function App() {
             <Footer />
           </>
         } />
-        <Route path='/myproperties' element={
-          user ?
-            <>
-              <Navbar />
-              <MyProperties />
-              <Footer />
-            </>
-            : <Navigate to='/signin' />
-        } />
         <Route path='/editproperty/:id' element={
           user ?
             <>
               <Navbar />
               <EditProperty />
+              <Footer />
+            </>
+            : <Navigate to='/signin' />
+        } />
+         <Route path='/my-profile' element={
+          user ?
+            <>
+              <Navbar />
+              <MyProfile />
+              <Footer />
+            </>
+            : <Navigate to='/signin' />
+        } />
+        <Route path='/update-profile' element={
+          user ?
+            <>
+              <Navbar />
+              <UpdateProfile />
               <Footer />
             </>
             : <Navigate to='/signin' />

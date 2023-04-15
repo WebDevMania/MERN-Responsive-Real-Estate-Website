@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { request } from '../../util/fetchAPI'
 import { AiOutlineFileImage } from 'react-icons/ai'
-import classes from './editProperty.module.css'
 import { useSelector } from 'react-redux'
+import classes from './editProperty.module.css'
 
 const EditProperty = () => {
     const { id } = useParams()
@@ -13,6 +13,8 @@ const EditProperty = () => {
     const [propertyDetails, setPropertyDetails] = useState(null)
     const [photo, setPhoto] = useState(null)
     const [initialPhoto, setInitialPhoto] = useState(null)
+    const [error, setError] = useState(false)
+    const [emptyFields, setEmptyFields] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -50,9 +52,19 @@ const EditProperty = () => {
             }
 
             await request("/upload/image", 'POST', options, formData, true)
-        } 
+        }
+
 
         try {
+            if (Object.values(propertyDetails).some((v) => v === '')) {
+                setEmptyFields(true)
+                setTimeout(() => {
+                    setEmptyFields(false)
+                }, 2500)
+                return
+            }
+
+
             const options = {
                 "Authorization": `Bearer ${token}`,
                 "Content-Type": 'application/json'
@@ -62,7 +74,10 @@ const EditProperty = () => {
             navigate(`/propertyDetail/${id}`)
 
         } catch (error) {
-            console.log(error)
+            setError(true)
+            setTimeout(() => {
+                setError(false)
+            }, 2500);
         }
     }
 
@@ -74,9 +89,22 @@ const EditProperty = () => {
                 <h2>Edit Property</h2>
                 <form onSubmit={handleUpdate}>
                     <input value={propertyDetails?.title} type="text" placeholder='Title' name="title" onChange={handleState} />
-                    <input value={propertyDetails?.type} type="text" placeholder='Type' name="type" onChange={handleState} />
+                    <select required name='type' onChange={handleState}>
+                        <option disabled>Select Type</option>
+                        <option value='beach'>Beach</option>
+                        <option value='village'>Village</option>
+                        <option value='mountain'>Mountan</option>
+                    </select>
                     <input value={propertyDetails?.desc} type="text" placeholder='Desc' name="desc" onChange={handleState} />
-                    <input value={propertyDetails?.continent} type="text" placeholder='Continent' name="continent" onChange={handleState} />
+                    <select required name='continent' onChange={handleState}>
+                        <option disabled>Select Continent</option>
+                        <option value='Europe'>Europe</option>
+                        <option value='Asia'>Asia</option>
+                        <option value='South America'>South America</option>
+                        <option value='North America'>North America</option>
+                        <option value='Australia'>Australia</option>
+                        <option value='Africa'>Africa</option>
+                    </select>
                     <input value={propertyDetails?.price} type="number" placeholder='Price' name="price" onChange={handleState} />
                     <input value={propertyDetails?.sqmeters} type="number" placeholder='Sq. meters' name="sqmeters" onChange={handleState} />
                     <input value={propertyDetails?.beds} type="number" placeholder='Beds' name="beds" step={1} min={1} onChange={handleState} />
@@ -88,10 +116,20 @@ const EditProperty = () => {
                             style={{ display: 'none' }}
                             onChange={(e) => setPhoto(e.target.files[0])}
                         />
-                        {photo && <p>{photo}</p>}
+                        {photo && <p>{photo.name}</p>}
                     </div>
                     <button type='submit'>Edit</button>
                 </form>
+                {error && (
+                    <div className={classes.error}>
+                        There was an error editing the listing! Try again.
+                    </div>
+                )}
+                {emptyFields && (
+                    <div className={classes.error}>
+                        All fields must be filled!
+                    </div>
+                )}
             </div>
         </div>
     )

@@ -17,6 +17,7 @@ const YachtEdit = () => {
     const [initialPhoto, setInitialPhoto] = useState(null)
     const [photo, setPhoto] = useState(null)
     const [error, setError] = useState(false)
+    const [emptyFields, setEmptyFields] = useState(false)
     const { token } = useSelector((state) => state.auth)
     const navigate = useNavigate()
 
@@ -24,7 +25,6 @@ const YachtEdit = () => {
         const fetchYachtData = async () => {
             try {
                 const yacht = await request(`/yacht/find/${id}`, 'GET')
-                console.log(yacht)
                 setTitle(yacht.title)
                 setDesc(yacht.desc)
                 setPrice(yacht.price)
@@ -40,7 +40,7 @@ const YachtEdit = () => {
     }, [id])
 
     const handleEdit = async (e) => {
-      e.preventDefault()
+        e.preventDefault()
 
         try {
             let filename = null
@@ -55,12 +55,18 @@ const YachtEdit = () => {
                 }
 
                 await request("/upload/image", 'POST', options, formData, true)
-            } 
+            } else {
+                setEmptyFields(true)
+                setTimeout(() => {
+                    setEmptyFields(false)
+                }, 2500)
+                return
+            }
 
             if (title === '' || desc === '' || price === '' || maxPassengers === '' || location === '') {
-                setError(true)
+                setEmptyFields(true)
                 setTimeout(() => {
-                    setError(false)
+                    setEmptyFields(false)
                 }, 2500)
                 return
             }
@@ -78,7 +84,7 @@ const YachtEdit = () => {
                 location
             }
 
-            if(filename){
+            if (filename) {
                 state.img = filename
             }
 
@@ -86,7 +92,10 @@ const YachtEdit = () => {
 
             navigate(`/yacht/${updatedYacht._id}`)
         } catch (error) {
-            console.log(error)
+            setError(true)
+            setTimeout(() => {
+                 setError(false)
+            }, 2500);
         }
     }
 
@@ -128,6 +137,16 @@ const YachtEdit = () => {
                     </div>
                     <button type="submit">Edit</button>
                 </form>
+                {error && (
+                    <div className={classes.error}>
+                        There was an error editing the listing! Try again.
+                    </div>
+                )}
+                {emptyFields && (
+                    <div className={classes.error}>
+                        All fields must be filled!
+                    </div>
+                )}
             </div>
         </div>
     )

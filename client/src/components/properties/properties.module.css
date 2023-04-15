@@ -185,6 +185,12 @@
     color: #222;
 }
 
+.yachts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 3rem;
+}
+
 /* RESPONSIVE */
 
 @media only screen and (max-width: 992px) {

@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { request } from '../../util/fetchAPI'
 import { FaBed, FaSquareFull } from 'react-icons/fa'
+import { BsBookmark, BsFillBookmarkFill } from 'react-icons/bs'
 import { useRef } from 'react'
 
 const PropertyDetail = () => {
@@ -17,6 +18,7 @@ const PropertyDetail = () => {
   const [showForm, setShowForm] = useState(false)
   const [title, setTitle] = useState("")
   const [desc, setDesc] = useState("")
+  const [isBookmarked, setIsBookmarked] = useState(false)
   const { id } = useParams()
   const formRef = useRef()
   const navigate = useNavigate()
@@ -29,6 +31,7 @@ const PropertyDetail = () => {
     const fetchDetails = async () => {
       try {
         const data = await request(`/property/find/${id}`, "GET")
+        setIsBookmarked(data?.bookmarkedUsers?.includes(user._id))
         setPropertyDetail(data)
       } catch (error) {
         console.error(error)
@@ -64,10 +67,18 @@ const PropertyDetail = () => {
     }
   }
 
-  console.log(propertyDetail?.currentOwner)
+  const handleBookmark = async () => {
+    try {
+      await request(`/property/bookmark/${id}`, 'PUT', { Authorization: `Bearer ${token}` })
+      setIsBookmarked(prev => !prev)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className={classes.container}>
+      <h3 style={{ textAlign: 'center', marginBottom: '2.5rem', fontSize: '32px', marginTop: '-2.5rem' }}>Property Details</h3>
       <div className={classes.wrapper}>
         <div className={classes.left}>
           <img src={`http://localhost:5000/images/${propertyDetail?.img}`} />
@@ -89,7 +100,13 @@ const PropertyDetail = () => {
             </div>
             <div className={classes.priceAndOwner}>
               <span className={classes.price}><span>Price: $ </span>{`${propertyDetail?.price}`}</span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>Owner: <img src={person} className={classes.owner} /></span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                Owner: {propertyDetail?.currentOwner?.profileImg
+                  ? (
+                    <img src={`http://localhost:5000/images/${propertyDetail?.currentOwner?.profileImg}`} className={classes.owner} />
+                  ) : (
+                    <img src={person} className={classes.owner} />)
+                }</span>
             </div>
             <div className={classes.moreDetails}>
               <span>{propertyDetail?.beds} <FaBed className={classes.icon} /></span>
@@ -99,10 +116,19 @@ const PropertyDetail = () => {
           <p className={classes.desc}>
             Desc: <span>{`${propertyDetail?.desc}`}</span>
           </p>
-          {user?._id == true &&
-            <button onClick={() => setShowForm(true)} className={classes.contactOwner}>
-              Contact owner
-            </button>
+          {user?._id !== propertyDetail?.currentOwner?._id.toString() &&
+            <div className={classes.contactBookmarkControls}>
+              <button onClick={() => setShowForm(true)} className={classes.contactOwner}>
+                Contact owner
+              </button>
+              <span onClick={handleBookmark}>
+                {isBookmarked ? (
+                  <BsFillBookmarkFill size={20} />
+                ) : (
+                  <BsBookmark size={20} />
+                )}
+              </span>
+            </div>
           }
         </div>
       </div>

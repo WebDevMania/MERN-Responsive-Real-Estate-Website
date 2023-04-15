@@ -14,6 +14,7 @@ const CreateYacht = () => {
     const [location, setLocation] = useState(null)
     const [photo, setPhoto] = useState(null)
     const [error, setError] = useState(false)
+    const [emptyFields, setEmptyFields] = useState(false)
     const { token } = useSelector((state) => state.auth)
     const navigate = useNavigate()
 
@@ -35,17 +36,17 @@ const CreateYacht = () => {
 
                 await request("/upload/image", 'POST', options, formData, true)
             } else {
-                setError(true)
+                setEmptyFields(true)
                 setTimeout(() => {
-                    setError(false)
+                    setEmptyFields(false)
                 }, 2500)
                 return
             }
 
             if (title === '' || desc === '' || price === '' || maxPassengers === '' || location === '') {
-                setError(true)
+                setEmptyFields(true)
                 setTimeout(() => {
-                    setError(false)
+                    setEmptyFields(false)
                 }, 2500)
                 return
             }
@@ -67,7 +68,10 @@ const CreateYacht = () => {
 
             navigate(`/yacht/${newYacht._id}`)
         } catch (error) {
-            console.log(error)
+            setError(true)
+            setTimeout(() => {
+                 setError(false)
+            }, 2500);
         }
     }
 
@@ -100,13 +104,18 @@ const CreateYacht = () => {
                     <div className={classes.inputBoxImage}>
                         <label htmlFor='image'>Photo    <AiFillFileImage /></label>
                         <input type="file" id="image" style={{ display: 'none' }} onChange={(e) => setPhoto(e.target.files[0])} />
-                        {photo && <div style={{marginTop: '12px'}}>Photo name: {photo.name}</div>}
+                        {photo && <div style={{ marginTop: '12px' }}>Photo name: {photo.name}</div>}
                     </div>
                     <button type="submit">Post</button>
                 </form>
                 {error && (
                     <div className={classes.error}>
-                        
+                        There was an error creating a listing! Try again.
+                    </div>
+                )}
+                {emptyFields && (
+                    <div className={classes.error}>
+                        All fields must be filled!
                     </div>
                 )}
             </div>

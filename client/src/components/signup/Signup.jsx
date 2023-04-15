@@ -5,11 +5,14 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import classes from './signup.module.css'
 import { register } from '../../redux/authSlice'
+import { request } from '../../util/fetchAPI'
 
 
 const Signup = () => {
   const [state, setState] = useState({})
   const [photo, setPhoto] = useState("")
+  const [error, setError] = useState(false)
+  const [emptyFields, setEmptyFields] = useState(false)
   const { token } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -22,6 +25,14 @@ const Signup = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault()
+
+    // how to check if ONLY ONE of the values of an object is empty
+    if (Object.values(state).some((v) => v === '')) {
+      setEmptyFields(true)
+      setTimeout(() => {
+        setEmptyFields(false)
+      }, 2500)
+    }
 
     try {
       let filename = null
@@ -39,20 +50,27 @@ const Signup = () => {
           body: formData
         })
       } else {
+        setEmptyFields(true)
+        setTimeout(() => {
+          setEmptyFields(false)
+        }, 2500)
         return
       }
 
-      const res = await fetch(`http://localhost:5000/auth/register`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify({ ...state, profileImg: filename })
-      })
-      const data = await res.json()
+      const headers = {
+        "Content-Type": "application/json",
+      }
+
+      const data = await request(`/auth/register`, "POST", headers, { ...state, profileImg: filename })
+
+
       dispatch(register(data))
       navigate("/")
     } catch (error) {
+      setError(true)
+      setTimeout(() => {
+        setError(false)
+      }, 2000)
       console.error(error)
     }
   }
@@ -70,6 +88,16 @@ const Signup = () => {
           <button type="submit">Register</button>
           <p>Already have an account? <Link to='/signin'>Login</Link></p>
         </form>
+        {error && (
+          <div className={classes.error}>
+            There was an error signing up! Try again.
+          </div>
+        )}
+        {emptyFields && (
+          <div className={classes.error}>
+            Fill all fields!
+          </div>
+        )}
       </div>
     </div>
   )

@@ -136,7 +136,7 @@
 .listPropertyWrapper {
     position: relative;
     background-color: #fff;
-    height: 87.5vh;
+    height: 92.5vh;
     width: 35vw;
     border-radius: 20px;
 }
@@ -154,6 +154,16 @@
     font-size: 18px;
     margin-right: 1rem;
 }
+
+.listPropertyWrapper>form>select{
+    display: flex;
+    justify-content: flex-start;
+    background-color: white;
+    color: #222;
+    outline: none;
+    padding: 0.5rem 0.25rem;
+    width: 50%;
+ }
 
 .listPropertyWrapper button {
     margin-top: 0.5rem;
@@ -197,6 +207,10 @@
     border-radius: 20px;
 }
 
+.userModal > .myProperties{
+    cursor: pointer;
+}
+
 .userModalClose{
     position: absolute;
     top: 0.5rem;
@@ -210,6 +224,10 @@
     text-decoration: none;
     padding: 0.25rem 0.75rem;
     border-radius: 8px;
+}
+
+.myProfile{
+    color: inherit;
 }
 
 /* RESPONSIVEE */
