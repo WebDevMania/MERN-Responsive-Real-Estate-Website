@@ -42,6 +42,7 @@ const UpdateProfile = () => {
     const handleUpdate = async (e) => {
         e.preventDefault()
 
+        console.log(profileDetails)
         if (Object.values(profileDetails).some((v) => v === '')) {
             setEmptyFields(true)
             setTimeout(() => {
@@ -61,7 +62,7 @@ const UpdateProfile = () => {
 
         try {
             let filename = null
-            if (profilePic && initialPF != true) {
+            if (profilePic) {
                 const formData = new FormData()
                 filename = crypto.randomUUID() + profilePic.name
                 formData.append('filename', filename)
@@ -72,13 +73,7 @@ const UpdateProfile = () => {
                 }
 
                 await request("/upload/image", 'POST', options, formData, true)
-            } else {
-                setEmptyFields(true)
-                setTimeout(() => {
-                    setEmptyFields(false)
-                }, 2500)
-                return
-            }
+            } 
 
             const options = {
                 "Authorization": `Bearer ${token}`,

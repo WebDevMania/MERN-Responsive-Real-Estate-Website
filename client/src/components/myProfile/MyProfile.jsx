@@ -92,10 +92,10 @@ const MyProfile = () => {
             dispatch(logout())
             navigate('/signin')
         } catch (error) {
-           setError(true)
-           setTimeout(() => {
-            setError(false)
-           }, 2500)
+            setError(true)
+            setTimeout(() => {
+                setError(false)
+            }, 2500)
         }
     }
 
@@ -108,13 +108,13 @@ const MyProfile = () => {
                         <Link className={classes.updateBtn} to={`/update-profile`}>Update Profile</Link>
                         {deleteModal && (
                             <div className={classes.deleteModal}>
-                              <button onClick={handleDeleteProfile}>Yes</button>
-                              <button onClick={() => setDeleteModal(prev => !prev)}>No</button>
+                                <button onClick={handleDeleteProfile}>Yes</button>
+                                <button onClick={() => setDeleteModal(prev => !prev)}>No</button>
                             </div>
                         )}
                         <button onClick={() => setDeleteModal(prev => !prev)} className={classes.deleteBtn}>Delete Profile</button>
                     </div>
-                    <img className={classes.userProfileImg} src={`http://localhost:5000/images/${user?.profileImg}`} />
+                    <img className={classes.userProfileImg} src={user?.profileImg ? `http://localhost:5000/images/${user?.profileImg}` : person} />
                     <div className={classes.userData}>
                         <h3>{user?.username}</h3>
                         <h4>{user?.email}</h4>
@@ -147,7 +147,7 @@ const MyProfile = () => {
                                         <div className={classes.details}>
                                             <div className={classes.priceAndOwner}>
                                                 <span className={classes.price}>$ {listedProperty.price}</span>
-                                                <img src={person} className={classes.owner} />
+                                                <img src={user?.profileImg ? `http://localhost:5000/images/${user?.profileImg}` : person} className={classes.owner} />
                                             </div>
                                             <div className={classes.moreDetails}>
                                                 <span>{listedProperty?.beds} <FaBed className={classes.icon} /></span>
