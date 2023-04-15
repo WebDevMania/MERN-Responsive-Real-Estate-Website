@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
     },
     profileImg:{
         type: String,
-        default: ''
+        required: true
     }
 }, {timestamps: true})
 

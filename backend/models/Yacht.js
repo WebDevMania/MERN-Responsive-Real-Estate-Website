@@ -14,7 +14,7 @@ const YachtSchema = new mongoose.Schema({
     desc: {
         type: String,
         required: true,
-        min: 50,
+        min: 12,
     },
     img: {
         type: String,
@@ -31,6 +31,10 @@ const YachtSchema = new mongoose.Schema({
     location: {
         type: String,
         required: true
+    },
+    bookmarkedUsers: {
+        type: [String],
+        default: []
     }
 }, {timestamps: true})
 
