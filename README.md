@@ -1,5 +1,8 @@
 Hello and welcome to my real estate project that has a functionality for people to sell yachts as well.
 
+Start Backend - npx nodemon
+Start Client - npm run start
+
 CLIENT ->
 Routing is in the App.js file and App.css has some css to remove default values margin and padding and etc.
 Redux is used only for authentication.
