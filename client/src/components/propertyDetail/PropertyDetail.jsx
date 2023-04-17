@@ -65,7 +65,8 @@ const PropertyDetail = () => {
     }
   }
 
-  const handleBookmark = async () => {
+  const handleBookmark = async (e) => {
+    console.log(e)
     try {
       await request(`/property/bookmark/${id}`, 'PUT', { Authorization: `Bearer ${token}` })
       setIsBookmarked(prev => !prev)
@@ -73,6 +74,8 @@ const PropertyDetail = () => {
       console.log(error)
     }
   }
+
+  console.log(user)
 
   return (
     <div className={classes.container}>
@@ -114,7 +117,7 @@ const PropertyDetail = () => {
           <p className={classes.desc}>
             Desc: <span>{`${propertyDetail?.desc}`}</span>
           </p>
-          {user?._id == true && (user?._id !== propertyDetail?.currentOwner?._id.toString()) &&
+          {user?._id != null && (user?._id !== propertyDetail?.currentOwner?._id.toString()) &&
             <div className={classes.contactBookmarkControls}>
               <button onClick={() => setShowForm(true)} className={classes.contactOwner}>
                 Contact owner
