@@ -6,7 +6,7 @@ const propertyController = require('express').Router()
 // get all
 propertyController.get('/getAll', async (req, res) => {
     try {
-        const properties = await Property.find({})
+        const properties = await Property.find({}).populate("currentOwner", '-password')
 
         console.log(properties)
 
