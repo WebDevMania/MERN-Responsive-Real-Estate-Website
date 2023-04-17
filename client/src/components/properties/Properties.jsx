@@ -1,7 +1,5 @@
 import React from 'react'
-import { FaBed, FaSquareFull } from 'react-icons/fa'
-import person from '../../assets/person.jpg'
-import { useLocation, useNavigate, Link } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { useState } from 'react'
 import { arrPriceRanges } from '../../util/idxToPriceRange'
@@ -9,6 +7,7 @@ import classes from './properties.module.css'
 import { useEffect } from 'react'
 import { continentToIdx } from '../../util/idxToContinent'
 import { request } from '../../util/fetchAPI'
+import PropertyCard from '../propertyCard/PropertyCard'
 
 const Properties = () => {
   const [allProperties, setAllProperties] = useState([])
@@ -125,24 +124,7 @@ const Properties = () => {
             </div>
             <div className={classes.properties}>
               {filteredProperties.map((property) => (
-                <div key={property._id} className={classes.property}>
-                  <Link to={`/propertyDetail/${property._id}`} className={classes.imgContainer}>
-                    <img src={`http://localhost:5000/images/${property?.img}`} alt="" />
-                  </Link>
-                  <div className={classes.details}>
-                    <div className={classes.priceAndOwner}>
-                      <span className={classes.price}>$ {property.price}</span>
-                      <img src={person} className={classes.owner} />
-                    </div>
-                    <div className={classes.moreDetails}>
-                      <span>{property.beds} <FaBed className={classes.icon} /></span>
-                      <span>{property.sqmeters} square meters<FaSquareFull className={classes.icon} /></span>
-                    </div>
-                    <div className={classes.desc}>
-                      {property.decs}
-                    </div>
-                  </div>
-                </div>
+                <PropertyCard key={property._id} property={property}/>
               ))}
             </div>
           </> : <h2 className={classes.noProperty}>We have no properties with the specified options.</h2>}

@@ -23,15 +23,11 @@ const PropertyDetail = () => {
   const formRef = useRef()
   const navigate = useNavigate()
 
-  // email js TODO ENV VARIABLES
-  // const serviceID = process.env.REACT_APP_SERVICE_ID
-  // const templateID = process.env.REACT_APP_TEMPLATE_ID
-
   useEffect(() => {
     const fetchDetails = async () => {
       try {
         const data = await request(`/property/find/${id}`, "GET")
-        setIsBookmarked(data?.bookmarkedUsers?.includes(user._id))
+        setIsBookmarked(data?.bookmarkedUsers?.includes(user?._id))
         setPropertyDetail(data)
       } catch (error) {
         console.error(error)
@@ -118,7 +114,7 @@ const PropertyDetail = () => {
           <p className={classes.desc}>
             Desc: <span>{`${propertyDetail?.desc}`}</span>
           </p>
-          {user?._id !== propertyDetail?.currentOwner?._id.toString() &&
+          {user?._id == true && (user?._id !== propertyDetail?.currentOwner?._id.toString()) &&
             <div className={classes.contactBookmarkControls}>
               <button onClick={() => setShowForm(true)} className={classes.contactOwner}>
                 Contact owner

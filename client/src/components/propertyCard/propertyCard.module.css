@@ -1,0 +1,79 @@
+.property {
+    height: max-content;
+    width: 300px;
+}
+
+.property>.imgContainer {
+    display: inline-block;
+    height: 350px;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.property>.imgContainer>img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: 150ms all;
+}
+
+.property>.imgContainer>img:hover {
+    scale: 1.035;
+}
+
+.owner {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.property>.details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 0 0.5rem;
+}
+
+.property>.details>.priceAndOwner {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.priceAndOwner>.price {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.moreDetails {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.moreDetails>span {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-right: 1px solid #0707b5;
+    color: #2c2cdc;
+    padding-right: 1.25rem;
+}
+
+.moreDetails>span:last-child {
+    border: none;
+}
+
+.desc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 250px;
+    font-size: 18px;
+    color: #222;
+}
