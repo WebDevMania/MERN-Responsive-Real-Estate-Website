@@ -12,6 +12,7 @@ const CreateYacht = () => {
     const [price, setPrice] = useState(null)
     const [maxPassengers, setMaxPassengers] = useState(null)
     const [location, setLocation] = useState(null)
+    const [metersLong, setMetersLong] = useState(null)
     const [photo, setPhoto] = useState(null)
     const [error, setError] = useState(false)
     const [emptyFields, setEmptyFields] = useState(false)
@@ -43,7 +44,7 @@ const CreateYacht = () => {
                 return
             }
 
-            if (title === '' || desc === '' || price === '' || maxPassengers === '' || location === '') {
+            if (title === '' || desc === '' || price === '' || maxPassengers === '' || location === '' || metersLong === '') {
                 setEmptyFields(true)
                 setTimeout(() => {
                     setEmptyFields(false)
@@ -56,15 +57,16 @@ const CreateYacht = () => {
                 "Content-Type": 'application/json'
             }
 
-            const state = {
+            const body = {
                 title,
                 desc,
                 price,
                 maxPassengers,
-                location
+                location,
+                metersLong
             }
 
-            const newYacht = await request("/yacht", 'POST', options, { ...state, img: filename })
+            const newYacht = await request("/yacht", 'POST', options, { ...body, img: filename })
 
             navigate(`/yacht/${newYacht._id}`)
         } catch (error) {
@@ -83,23 +85,27 @@ const CreateYacht = () => {
                 <form onSubmit={handleCreate}>
                     <div className={classes.inputBox}>
                         <label>Title</label>
-                        <input type="text" name="title" onChange={(e) => setTitle(e.target.value)} />
+                        <input value={title} type="text" name="title" onChange={(e) => setTitle(e.target.value)} />
                     </div>
                     <div className={classes.inputBox}>
                         <label>Desc</label>
-                        <input type="text" name="desc" onChange={(e) => setDesc(e.target.value)} />
+                        <input value={desc} type="text" name="desc" onChange={(e) => setDesc(e.target.value)} />
                     </div>
                     <div className={classes.inputBox}>
                         <label>Price</label>
-                        <input type="number" name="price" onChange={(e) => setPrice(e.target.value)} />
+                        <input value={price} type="number" name="price" onChange={(e) => setPrice(e.target.value)} />
                     </div>
                     <div className={classes.inputBox}>
                         <label>Max Passengers</label>
-                        <input type="number" name="maxPassengers" onChange={(e) => setMaxPassengers(e.target.value)} />
+                        <input value={maxPassengers} type="number" name="maxPassengers" onChange={(e) => setMaxPassengers(e.target.value)} />
                     </div>
                     <div className={classes.inputBox}>
                         <label>Location</label>
-                        <input type="text" name="location" onChange={(e) => setLocation(e.target.value)} />
+                        <input value={location} type="text" name="location" onChange={(e) => setLocation(e.target.value)} />
+                    </div>
+                    <div className={classes.inputBox}>
+                        <label>Meters long</label>
+                        <input value={metersLong} type="text" name="metersLong" onChange={(e) => setMetersLong(e.target.value)} />
                     </div>
                     <div className={classes.inputBoxImage}>
                         <label htmlFor='image'>Photo    <AiFillFileImage /></label>

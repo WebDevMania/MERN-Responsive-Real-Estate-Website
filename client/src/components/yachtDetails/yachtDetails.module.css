@@ -13,7 +13,7 @@
 }
 
 .left {
-    height: 80%;
+    height: 450px;
     width: 50%;
 }
 
@@ -24,6 +24,7 @@
 }
 
 .right {
+    height: 450px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -147,6 +148,22 @@
     background-color: #fff;
 }
 
+.metersLong{
+    margin-top: 2rem;
+    font-size: 17px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.metersLong > span{
+    background-color: blue;
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 8px;
+}
+
 .contactBookmarkControls {
     display: flex;
     gap: 3rem;
@@ -239,7 +256,7 @@
 
 .commentSection {
     margin: 0 auto;
-    margin-top: 5rem;
+    margin-top: 12.5rem;
     width: 50%;
     display: flex;
     flex-direction: column;

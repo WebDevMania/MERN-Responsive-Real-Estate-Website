@@ -14,6 +14,7 @@ const YachtEdit = () => {
     const [price, setPrice] = useState(null)
     const [maxPassengers, setMaxPassengers] = useState(null)
     const [location, setLocation] = useState(null)
+    const [metersLong, setMetersLong] = useState(null)
     const [initialPhoto, setInitialPhoto] = useState(null)
     const [photo, setPhoto] = useState(null)
     const [error, setError] = useState(false)
@@ -31,6 +32,7 @@ const YachtEdit = () => {
                 setMaxPassengers(yacht.maxPassengers)
                 setLocation(yacht.location)
                 setTitle(yacht.title)
+                setMetersLong(yacht.metersLong)
                 setInitialPhoto(yacht.img)
             } catch (error) {
                 console.log(error)
@@ -57,7 +59,7 @@ const YachtEdit = () => {
                 await request("/upload/image", 'POST', options, formData, true)
             }
 
-            if (title === '' || desc === '' || price === '' || maxPassengers === '' || location === '') {
+            if (title === '' || desc === '' || price === '' || maxPassengers === '' || location === '' || metersLong === '') {
                 setEmptyFields(true)
                 setTimeout(() => {
                     setEmptyFields(false)
@@ -70,25 +72,26 @@ const YachtEdit = () => {
                 "Content-Type": 'application/json'
             }
 
-            const state = {
+            const body = {
                 title,
                 desc,
                 price,
                 maxPassengers,
-                location
+                location,
+                metersLong
             }
 
             if (filename) {
-                state.img = filename
+                body.img = filename
             }
 
-            const updatedYacht = await request("/yacht/" + id, 'PUT', options, state)
+            const updatedYacht = await request("/yacht/" + id, 'PUT', options, body)
 
             navigate(`/yacht/${updatedYacht._id}`)
         } catch (error) {
             setError(true)
             setTimeout(() => {
-                 setError(false)
+                setError(false)
             }, 2500);
         }
     }
@@ -122,6 +125,10 @@ const YachtEdit = () => {
                     <div className={classes.inputBox}>
                         <label>Location</label>
                         <input value={location} type="text" name="location" onChange={(e) => setLocation(e.target.value)} />
+                    </div>
+                    <div className={classes.inputBox}>
+                        <label>Meters long</label>
+                        <input value={metersLong} type="text" name="metersLong" onChange={(e) => setMetersLong(e.target.value)} />
                     </div>
                     <div className={classes.inputBoxImage}>
                         <label htmlFor='image'>Photo    <AiFillFileImage /></label>
