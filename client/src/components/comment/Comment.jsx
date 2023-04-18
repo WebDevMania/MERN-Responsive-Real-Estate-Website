@@ -4,6 +4,7 @@ import { format } from 'timeago.js'
 import { useSelector } from 'react-redux'
 import { BsTrash } from 'react-icons/bs'
 import { request } from '../../util/fetchAPI'
+import person from '../../assets/person.jpg'
 
 const Comment = ({ comment, setComments }) => {
   const { user, token } = useSelector((state) => state.auth)
@@ -26,7 +27,7 @@ const Comment = ({ comment, setComments }) => {
     <div className={classes.container}>
       <div className={classes.wrapper}>
         <div className={classes.left}>
-          <img src={`http://localhost:5000/images/${comment?.author?.profileImg}`} />
+          <img src={comment?.author?.profileImg ? `http://localhost:5000/images/${comment?.author?.profileImg}` : person}/>
           <div className={classes.userData}>
             <h4>{comment?.author?.username}</h4>
             <span className={classes.timeago}>{format(comment?.createdAt)}</span>

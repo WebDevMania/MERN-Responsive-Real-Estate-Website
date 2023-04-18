@@ -176,8 +176,7 @@ const PropertyDetail = () => {
           {user?._id == null && (
             <Link to={`/signin`}>
               <h4 className={classes.noFuncMessage}>
-                Sign in to get access to the functionality
-                and see comments.
+                Sign in to get access to the functionality.
               </h4>
             </Link>
           )
@@ -212,13 +211,14 @@ const PropertyDetail = () => {
           </div>
         </div>
       )}
-      {user?._id != null && <div className={classes.commentSection}>
+      <div className={classes.commentSection}>
         {/* comment input */}
-        <div className={classes.commentInput}>
+        {user?._id == null && <h3 style={{margin: '0.75rem', fontSize: '24px'}}>Sign in to be able to comment!</h3>}
+        {user?._id != null && <div className={classes.commentInput}>
           <img src={`http://localhost:5000/images/${user?.profileImg}`} />
           <input value={commentText} type="text" placeholder='Type message...' onChange={(e) => setCommentText(e.target.value)} />
           <button onClick={handleComment}>Post</button>
-        </div>
+        </div>}
         {/* displaying comments */}
         <div className={classes.comments}>
           {
@@ -230,12 +230,12 @@ const PropertyDetail = () => {
               )
               : (
                 <h2 className={classes.noCommentsMessage}>
-                  No comments yet. Be the the first to leave a comment!
+                  No comments yet.
                 </h2>
               )
           }
         </div>
-      </div>}
+      </div>
     </div>
   )
 }
