@@ -32,6 +32,10 @@ const YachtSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    metersLong: {
+        type: String,
+        required: true
+    },
     bookmarkedUsers: {
         type: [String],
         default: []
