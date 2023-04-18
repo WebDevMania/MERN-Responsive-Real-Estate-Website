@@ -8,6 +8,7 @@ const propertyController = require('./controllers/propertyController')
 const uploadController = require('./controllers/uploadController');
 const yachtController = require("./controllers/yachtController");
 const userController = require("./controllers/userController");
+const commentController = require("./controllers/commentController");
 
 // db connecting
 mongoose.set('strictQuery', false)
@@ -24,6 +25,7 @@ app.use("/property", propertyController);
 app.use("/yacht", yachtController);
 app.use('/upload', uploadController)
 app.use('/user', userController)
+app.use('/comment', commentController)
 
 // starting server
 const port = process.env.PORT || 5000;
