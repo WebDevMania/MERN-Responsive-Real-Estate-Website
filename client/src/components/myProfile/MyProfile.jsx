@@ -151,14 +151,14 @@ const MyProfile = () => {
                                             </div>
                                             <div className={classes.moreDetails}>
                                                 <span>{listedProperty?.beds} <FaBed className={classes.icon} /></span>
-                                                <span>{listedProperty?.sqmeters} square meters<FaSquareFull className={classes.icon} /></span>
+                                                <span>{listedProperty?.sqmeters} sq. meters<FaSquareFull className={classes.icon} /></span>
                                             </div>
                                             <div className={classes.desc}>
                                                 {listedProperty?.decs}
                                             </div>
                                         </div>
                                     </div>
-                                )) : <h2>You have no listed properties</h2>}
+                                )) : <h2 className={classes.noListed}>You have no listed properties</h2>}
                             </div>
                         </>
                     )}
@@ -171,7 +171,7 @@ const MyProfile = () => {
                                         <YachtCard yacht={yacht} key={yacht._id} />
                                     ))}
                                 </div>
-                            ) : <h2>You have no listed yachts</h2>}
+                            ) : <h2 className={classes.noListed}>You have no listed yachts</h2>}
                         </>
                     )}
                     {activeBtn === 2 && (
@@ -190,14 +190,14 @@ const MyProfile = () => {
                                             </div>
                                             <div className={classes.moreDetails}>
                                                 <span>{bookmarkedProperty?.beds} <FaBed className={classes.icon} /></span>
-                                                <span>{bookmarkedProperty?.sqmeters} square meters<FaSquareFull className={classes.icon} /></span>
+                                                <span>{bookmarkedProperty?.sqmeters} sq. meters<FaSquareFull className={classes.icon} /></span>
                                             </div>
                                             <div className={classes.desc}>
                                                 {bookmarkedProperty?.decs}
                                             </div>
                                         </div>
                                     </div>
-                                )) : <h2>You have no bookmarked properties</h2>}
+                                )) : <h2 className={classes.noListed}>You have no bookmarked properties</h2>}
                             </div>
                         </>
                     )}
@@ -210,7 +210,7 @@ const MyProfile = () => {
                                         <YachtCard yacht={yacht} key={yacht._id} />
                                     ))}
                                 </div>
-                            ) : <h2>You have no bookmarked yachts</h2>}
+                            ) : <h2 className={classes.noListed}>You have no bookmarked yachts</h2>}
                         </>
                     )}
                 </div>

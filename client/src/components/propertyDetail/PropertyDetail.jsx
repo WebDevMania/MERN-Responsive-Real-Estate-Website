@@ -44,7 +44,7 @@ const PropertyDetail = () => {
   const handleContactOwner = async (e) => {
     e.preventDefault()
 
-    emailjs.sendForm("service_99i3wr5", "template_w5mthmm", formRef.current, '5T3Wb_hkHjKTOJDYQ')
+    emailjs.sendForm("service_mjoebse", "template_w5mthmm", formRef.current, '5T3Wb_hkHjKTOJDYQ')
       .then((result) => {
         handleCloseForm()
         setSuccess(true)
@@ -65,8 +65,7 @@ const PropertyDetail = () => {
     }
   }
 
-  const handleBookmark = async (e) => {
-    console.log(e)
+  const handleBookmark = async () => {
     try {
       await request(`/property/bookmark/${id}`, 'PUT', { Authorization: `Bearer ${token}` })
       setIsBookmarked(prev => !prev)
@@ -75,7 +74,6 @@ const PropertyDetail = () => {
     }
   }
 
-  console.log(user)
 
   return (
     <div className={classes.container}>
@@ -131,6 +129,7 @@ const PropertyDetail = () => {
               </span>
             </div>
           }
+          {user?._id == null && <h4 className={classes.noFuncMessage}>Sign in to get access to the functionality</h4>}
         </div>
       </div>
       {

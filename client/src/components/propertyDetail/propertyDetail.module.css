@@ -252,6 +252,12 @@
     align-items: center;
 }
 
+.noFuncMessage{
+    margin-top: 2.5rem;
+    font-size: 22px;
+    color: #333;
+}
+
 /* RESPONSIVE */
 
 @media only screen and (max-width: 992px) {

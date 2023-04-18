@@ -45,7 +45,7 @@ const YachtDetails = () => {
     const handleContactOwner = async (e) => {
         e.preventDefault()
 
-        emailjs.sendForm("service_99i3wr5", "template_ebfbr9s", formRef.current, '5T3Wb_hkHjKTOJDYQ')
+        emailjs.sendForm("service_mjoebse", "template_ebfbr9s", formRef.current, '5T3Wb_hkHjKTOJDYQ')
             .then((result) => {
                 handleCloseForm()
                 setSuccess(true)

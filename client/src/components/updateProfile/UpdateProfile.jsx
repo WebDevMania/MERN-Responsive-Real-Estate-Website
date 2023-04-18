@@ -9,7 +9,8 @@ import { AiFillFileImage } from 'react-icons/ai'
 import classes from './updateProfile.module.css'
 
 const UpdateProfile = () => {
-    const [profileDetails, setProfileDetails] = useState({})
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [emptyFields, setEmptyFields] = useState(false)
     const [shortPassword, setShortPassword] = useState(false)
@@ -23,9 +24,10 @@ const UpdateProfile = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const data = await request(`/user/find/${user._id}`, 'GET')
-                setProfileDetails(data)
-                setInitialPF(data.profileImg)
+                const {username, email, profileImg} = await request(`/user/find/${user._id}`, 'GET')
+                setUsername(username)
+                setEmail(email)
+                setInitialPF(profileImg)
             } catch (error) {
                 console.log(error)
             }
@@ -33,31 +35,27 @@ const UpdateProfile = () => {
         fetchUserData()
     }, [])
 
-    const handleState = (e) => {
-        setProfileDetails((prev) => {
-            return { ...prev, [e.target.name]: e.target.value }
-        })
-    }
 
     const handleUpdate = async (e) => {
         e.preventDefault()
 
-        console.log(profileDetails)
-        if (Object.values(profileDetails).some((v) => v === '')) {
+        if (email === '' || username === '') {
             setEmptyFields(true)
             setTimeout(() => {
                 setEmptyFields(false)
             }, 2500)
+            return
         }
 
         // we will not include the pass if it's length is < 1, because 0 characters means that the user 
         // doesn't want to update his password
 
-        if (password.length > 5 && password.length < 1) {
+        if ((password.length > 5) == false && password.length !== 0) {
             setShortPassword(true)
             setTimeout(() => {
                 setShortPassword(false)
             }, 2500)
+            return
         }
 
         try {
@@ -81,17 +79,17 @@ const UpdateProfile = () => {
             }
 
 
-            let state = { ...profileDetails }
+            let body = { username, email }
 
             if (Boolean(filename)) {
-                state.profileImg = filename
+                body.profileImg = filename
             }
 
             if (password.length > 5) {
-                state.password = password
+                body.password = password
             }
 
-            await request(`/user/${user._id}`, 'PUT', options, state)
+            await request(`/user/${user._id}`, 'PUT', options, body)
             dispatch(logout())
             navigate(`/signin`)
 
@@ -113,8 +111,8 @@ const UpdateProfile = () => {
             <div className={classes.wrapper}>
                 <h2>Update Profile</h2>
                 <form onSubmit={handleUpdate}>
-                    <input value={profileDetails?.username} name='username' type="text" placeholder='Username...' onChange={handleState} />
-                    <input value={profileDetails?.email} name='email' type="email" placeholder='Email...' onChange={handleState} />
+                    <input value={username} type="text" placeholder='Username...' onChange={(e) => setUsername(e.target.value)} />
+                    <input value={email} type="email" placeholder='Email...' onChange={(e) => setEmail(e.target.value)} />
                     <input type="password" placeholder='Password...' onChange={(e) => setPassword(e.target.value)} />
                     <div className={classes.inputBoxImage}>
                         <label htmlFor='image'>Photo    <AiFillFileImage /></label>
