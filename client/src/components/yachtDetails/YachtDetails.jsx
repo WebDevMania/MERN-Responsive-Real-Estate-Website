@@ -119,7 +119,6 @@ const YachtDetails = () => {
         }
     }
 
-    console.log(comments)
 
 
     return (
@@ -178,6 +177,13 @@ const YachtDetails = () => {
                 {success && (
                     <div className={classes.success}>
                         You've successfully contacted the owner of the yacht!
+                    </div>
+                )}
+                {shortComment && (
+                    <div>
+                        <div className={classes.error}>
+                            Comment must be at least 2 characters long!
+                        </div>
                     </div>
                 )}
             </div>

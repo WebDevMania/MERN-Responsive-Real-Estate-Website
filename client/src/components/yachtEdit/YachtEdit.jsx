@@ -55,12 +55,6 @@ const YachtEdit = () => {
                 }
 
                 await request("/upload/image", 'POST', options, formData, true)
-            } else {
-                setEmptyFields(true)
-                setTimeout(() => {
-                    setEmptyFields(false)
-                }, 2500)
-                return
             }
 
             if (title === '' || desc === '' || price === '' || maxPassengers === '' || location === '') {

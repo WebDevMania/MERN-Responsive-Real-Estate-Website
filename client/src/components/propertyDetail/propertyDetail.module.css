@@ -234,6 +234,21 @@
     cursor: pointer;
 }
 
+.error {
+    height: 70px;
+    width: 250px;
+    text-align: center;
+    border-radius: 20px;
+    line-height: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #f00;
+    color: #fff;
+    position: fixed;
+    top: 5rem;
+    right: 5rem;
+    font-weight: 500;
+}
+
 .success {
     z-index: 999999999999;
     height: 70px;
@@ -253,22 +268,22 @@
     align-items: center;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
-.noFuncMessage{
+.noFuncMessage {
     margin-top: 2.5rem;
     font-size: 22px;
     color: #333;
     transition: 150ms all;
 }
 
-.noFuncMessage:hover{
+.noFuncMessage:hover {
     color: #555;
 }
 
-.commentSection{
+.commentSection {
     margin: 0 auto;
     margin-top: 5rem;
     width: 50%;
@@ -280,7 +295,7 @@ a{
     border-radius: 20px;
 }
 
-.commentInput{
+.commentInput {
     padding: 1rem;
     width: 100%;
     display: flex;
@@ -289,14 +304,14 @@ a{
     border-bottom: 1px solid #555;
 }
 
-.commentInput > img{
+.commentInput>img {
     width: 50px;
     height: 50px;
     object-fit: cover;
     border-radius: 50%;
 }
 
-.commentInput > input{
+.commentInput>input {
     flex: 1;
     outline: none;
     border: none;
@@ -304,18 +319,18 @@ a{
     border-bottom: 1px solid #555;
 }
 
-.commentInput > button{
-   outline: none;
-   border: none;
-   background-color: #0707b5;
-   color: #fff;
-   padding: 0.25rem 0.75rem;
-   border-radius: 8px;
-   font-size: 17px;
-   cursor: pointer;
+.commentInput>button {
+    outline: none;
+    border: none;
+    background-color: #0707b5;
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 8px;
+    font-size: 17px;
+    cursor: pointer;
 }
 
-.comments{
+.comments {
     max-height: 300px;
     overflow: auto;
     margin-top: 1.25rem;

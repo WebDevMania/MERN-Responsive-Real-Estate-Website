@@ -205,6 +205,13 @@ const PropertyDetail = () => {
           You've successfully contacted the owner of the yacht!
         </div>
       )}
+      {shortComment && (
+        <div>
+          <div className={classes.error}>
+            Comment must be at least 2 characters long!
+          </div>
+        </div>
+      )}
       {user?._id != null && <div className={classes.commentSection}>
         {/* comment input */}
         <div className={classes.commentInput}>
