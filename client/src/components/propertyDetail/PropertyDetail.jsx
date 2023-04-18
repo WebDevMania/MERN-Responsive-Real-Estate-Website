@@ -11,6 +11,7 @@ import { request } from '../../util/fetchAPI'
 import { FaBed, FaSquareFull } from 'react-icons/fa'
 import { BsBookmark, BsFillBookmarkFill } from 'react-icons/bs'
 import { useRef } from 'react'
+import Comment from '../comment/Comment'
 
 const PropertyDetail = () => {
   const { token, user } = useSelector((state) => state.auth)
@@ -19,6 +20,10 @@ const PropertyDetail = () => {
   const [desc, setDesc] = useState("")
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [commentText, setCommentText] = useState('')
+  const [comments, setComments] = useState([])
+  // todo display message
+  const [shortComment, setShortComment] = useState(false)
   const { id } = useParams()
   const formRef = useRef()
   const navigate = useNavigate()
@@ -34,6 +39,18 @@ const PropertyDetail = () => {
       }
     }
     fetchDetails()
+  }, [id])
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const data = await request(`/comment/${id}`, 'GET')
+        setComments(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchComments()
   }, [id])
 
   const handleCloseForm = () => {
@@ -69,6 +86,33 @@ const PropertyDetail = () => {
     try {
       await request(`/property/bookmark/${id}`, 'PUT', { Authorization: `Bearer ${token}` })
       setIsBookmarked(prev => !prev)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleComment = async () => {
+
+    if (commentText?.length < 2) {
+      setShortComment(true)
+      setTimeout(() => {
+        setShortComment(false)
+      }, 2500)
+      return
+    }
+
+    try {
+      const options = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+
+      const newComment = await request(`/comment`, 'POST', options, { text: commentText, listing: id })
+      setComments((prev) => {
+        return [newComment, ...prev]
+      })
+
+      setCommentText('')
     } catch (error) {
       console.log(error)
     }
@@ -129,7 +173,15 @@ const PropertyDetail = () => {
               </span>
             </div>
           }
-          {user?._id == null && <h4 className={classes.noFuncMessage}>Sign in to get access to the functionality</h4>}
+          {user?._id == null && (
+            <Link to={`/signin`}>
+              <h4 className={classes.noFuncMessage}>
+                Sign in to get access to the functionality
+                and see comments.
+              </h4>
+            </Link>
+          )
+          }
         </div>
       </div>
       {
@@ -153,6 +205,30 @@ const PropertyDetail = () => {
           You've successfully contacted the owner of the yacht!
         </div>
       )}
+      {user?._id != null && <div className={classes.commentSection}>
+        {/* comment input */}
+        <div className={classes.commentInput}>
+          <img src={`http://localhost:5000/images/${user?.profileImg}`} />
+          <input value={commentText} type="text" placeholder='Type message...' onChange={(e) => setCommentText(e.target.value)} />
+          <button onClick={handleComment}>Post</button>
+        </div>
+        {/* displaying comments */}
+        <div className={classes.comments}>
+          {
+            comments?.length > 0
+              ? (
+                comments?.map((comment) => (
+                  <Comment setComments={setComments} key={comment._id} comment={comment} />
+                ))
+              )
+              : (
+                <h2 className={classes.noCommentsMessage}>
+                  No comments yet. Be the the first to leave a comment!
+                </h2>
+              )
+          }
+        </div>
+      </div>}
     </div>
   )
 }

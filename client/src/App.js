@@ -16,8 +16,9 @@ import YachtDetails from './components/yachtDetails/YachtDetails';
 import CreateYacht from './components/createYacht/CreateYacht';
 import YachtEdit from './components/yachtEdit/YachtEdit';
 import MyProfile from './components/myProfile/MyProfile';
-import './App.css';
 import UpdateProfile from './components/updateProfile/UpdateProfile';
+import './App.css';
+import NotFound from './components/notFound/NotFound';
 
 function App() {
   const { user } = useSelector((state) => state.auth)
@@ -92,7 +93,7 @@ function App() {
             </>
             : <Navigate to='/signin' />
         } />
-         <Route path='/my-profile' element={
+        <Route path='/my-profile' element={
           user ?
             <>
               <Navbar />
@@ -109,6 +110,13 @@ function App() {
               <Footer />
             </>
             : <Navigate to='/signin' />
+        } />
+        <Route path='*' element={
+          <>
+            <Navbar />
+            <NotFound />
+            <Footer />
+          </>
         } />
       </Routes>
     </div>

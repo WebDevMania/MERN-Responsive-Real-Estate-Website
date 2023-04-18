@@ -1,0 +1,26 @@
+.container{
+    margin-top: 2rem;
+    height: calc(50vh - 60px);
+    width: 100%;
+}
+
+.wrapper{
+    width: 85%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.wrapper > h2{
+    font-size: 32px;
+    color: #444;
+}
+
+.wrapper > a{
+    text-decoration: none;
+    color: #333;
+    font-size: 24px;
+}

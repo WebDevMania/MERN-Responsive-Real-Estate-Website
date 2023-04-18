@@ -9,16 +9,21 @@ import { AiOutlineClose } from 'react-icons/ai'
 import emailjs from '@emailjs/browser'
 import { useRef } from 'react'
 import { BsBookmark, BsFillBookmarkFill } from 'react-icons/bs'
+import Comment from '../comment/Comment'
 
 
 const YachtDetails = () => {
+    const { user, token } = useSelector((state) => state.auth)
     const { id } = useParams()
     const [yacht, setYacht] = useState(null)
     const [showModal, setShowModal] = useState(false)
     const [desc, setDesc] = useState(null)
     const [isBookmarked, setIsBookmarked] = useState(false)
     const [success, setSuccess] = useState(false)
-    const { user, token } = useSelector((state) => state.auth)
+    const [commentText, setCommentText] = useState('')
+    const [comments, setComments] = useState([])
+    // todo display message
+    const [shortComment, setShortComment] = useState(false)
     const formRef = useRef()
     const navigate = useNavigate()
 
@@ -33,6 +38,18 @@ const YachtDetails = () => {
             }
         }
         fetchYachtDetails()
+    }, [id])
+
+    useEffect(() => {
+        const fetchComments = async () => {
+            try {
+                const data = await request(`/comment/${id}`, 'GET')
+                setComments(data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchComments()
     }, [id])
 
 
@@ -65,6 +82,7 @@ const YachtDetails = () => {
             console.log(error)
         }
     }
+
     const handleBookmark = async () => {
         try {
             await request(`/yacht/bookmark/${id}`, 'PUT', { Authorization: `Bearer ${token}` })
@@ -73,6 +91,36 @@ const YachtDetails = () => {
             console.log(error)
         }
     }
+
+    const handleComment = async () => {
+
+        if (commentText?.length < 2) {
+            setShortComment(true)
+            setTimeout(() => {
+                setShortComment(false)
+            }, 2500)
+            return
+        }
+
+        try {
+            const options = {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+
+            const newComment = await request(`/comment`, 'POST', options, { text: commentText, listing: id })
+            setComments((prev) => {
+                return [newComment, ...prev]
+            })
+
+            setCommentText('')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    console.log(comments)
+
 
     return (
         <div className={classes.container}>
@@ -133,6 +181,30 @@ const YachtDetails = () => {
                     </div>
                 )}
             </div>
+            {user?._id != null && <div className={classes.commentSection}>
+                {/* comment input */}
+                <div className={classes.commentInput}>
+                    <img src={`http://localhost:5000/images/${user?.profileImg}`} />
+                    <input value={commentText} type="text" placeholder='Type message...' onChange={(e) => setCommentText(e.target.value)} />
+                    <button onClick={handleComment}>Post</button>
+                </div>
+                {/* displaying comments */}
+                <div className={classes.comments}>
+                    {
+                        comments?.length > 0
+                            ? (
+                                comments?.map((comment) => (
+                                    <Comment setComments={setComments} key={comment._id} comment={comment} />
+                                ))
+                            )
+                            : (
+                                <h2 className={classes.noCommentsMessage}>
+                                    No comments yet. Be the the first to leave a comment!
+                                </h2>
+                            )
+                    }
+                </div>
+            </div>}
         </div>
     )
 }
